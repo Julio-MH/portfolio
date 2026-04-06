@@ -1,0 +1,1764 @@
+<!doctype html>
+<html lang="fr" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Julio MH15 — Producteur de cinéma sci-fi virtuel, entrepreneur digital et compositeur. Créations immersives, VFX haute résolution et univers numériques innovants. Portfolio professionnel de production audiovisuelle, entrepreneuriat créatif et musique numérique. Découvrez mes projets transformateurs et collaborations.">
+  <title>Julio MH15 - Production Virtuelle Cinéma Sci-Fi &amp; Entrepreneuriat</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&amp;family=Space+Mono:wght@400;700&amp;display=swap" rel="stylesheet">
+  <style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:#0a0a0a}
+::-webkit-scrollbar-thumb{background:#333;border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:#f5c518}
+
+.font-syne{font-family:'Syne',sans-serif}
+.font-mono{font-family:'Space Mono',monospace}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideIn{from{opacity:0;transform:translateX(-40px)}to{opacity:1;transform:translateX(0)}}
+@keyframes pulse-glow{0%,100%{box-shadow:0 0 20px rgba(245,197,24,0.1)}50%{box-shadow:0 0 40px rgba(245,197,24,0.3)}}
+@keyframes grain{0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-10%)}30%{transform:translate(3%,-15%)}50%{transform:translate(-15%,5%)}70%{transform:translate(8%,15%)}90%{transform:translate(-10%,10%)}}
+@keyframes countUp{from{opacity:0;transform:scale(0.5)}to{opacity:1;transform:scale(1)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+.anim-fade{animation:fadeUp 0.6s ease forwards}
+.anim-slide{animation:slideIn 0.5s ease forwards}
+.anim-stagger>*{opacity:0;animation:fadeUp 0.5s ease forwards}
+.anim-stagger>*:nth-child(1){animation-delay:0.05s}
+.anim-stagger>*:nth-child(2){animation-delay:0.1s}
+.anim-stagger>*:nth-child(3){animation-delay:0.15s}
+.anim-stagger>*:nth-child(4){animation-delay:0.2s}
+.anim-stagger>*:nth-child(5){animation-delay:0.25s}
+.anim-stagger>*:nth-child(6){animation-delay:0.3s}
+.anim-stagger>*:nth-child(7){animation-delay:0.35s}
+.anim-stagger>*:nth-child(8){animation-delay:0.4s}
+
+.grain::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");animation:grain 8s steps(10) infinite;pointer-events:none;z-index:0}
+
+.card-hover{transition:all 0.4s cubic-bezier(0.4,0,0.2,1)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(245,197,24,0.15)}
+.btn-primary{background:#f5c518;color:#0a0a0a;font-weight:700;transition:all 0.3s}
+.btn-primary:hover{background:#ffd84d;transform:scale(1.02)}
+.btn-ghost{border:1px solid #333;color:#ccc;transition:all 0.3s}
+.btn-ghost:hover{border-color:#f5c518;color:#f5c518}
+
+.nav-item{position:relative;transition:color 0.3s}
+.nav-item::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:#f5c518;transition:width 0.3s}
+.nav-item:hover::after,.nav-item.active::after{width:100%}
+.nav-item:hover,.nav-item.active{color:#f5c518}
+
+.section-hidden{display:none}
+.section-visible{display:block}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:100;display:none;align-items:center;justify-content:center;backdrop-filter:blur(8px)}
+.modal-overlay.open{display:flex}
+.modal-content{background:#141414;border:1px solid #222;border-radius:12px;max-width:600px;width:90%;max-height:80%;overflow-y:auto;padding:24px}
+
+.marquee-track{display:flex;animation:marquee 20s linear infinite;width:max-content}
+
+.toast{position:fixed;bottom:24px;right:24px;background:#1a1a1a;border:1px solid #f5c518;color:#f5c518;padding:12px 20px;border-radius:8px;z-index:200;transform:translateY(100px);opacity:0;transition:all 0.4s}
+.toast.show{transform:translateY(0);opacity:1}
+
+input,textarea,select{background:#1a1a1a;border:1px solid #333;color:#e5e5e5;border-radius:8px;padding:10px 14px;width:100%;font-family:'Space Mono',monospace;font-size:13px;transition:border-color 0.3s}
+input:focus,textarea:focus,select:focus{outline:none;border-color:#f5c518}
+label{color:#888;font-size:12px;margin-bottom:4px;display:block;font-family:'Space Mono',monospace}
+
+.lang-selector{display:flex;gap:2px;flex-wrap:wrap}
+.lang-btn{padding:4px 10px;border:1px solid #333;border-radius:4px;background:#1a1a1a;color:#888;font-size:11px;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:'Space Mono',monospace}
+.lang-btn:hover{border-color:#f5c518;color:#f5c518}
+.lang-btn.active{background:#f5c518;color:#0a0a0a;border-color:#f5c518}
+</style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full bg-[#0a0a0a] text-[#e5e5e5] font-syne overflow-hidden">
+  <div id="app" class="h-full w-full flex flex-col relative grain"><!-- Toast -->
+   <div id="toast" class="toast font-mono text-sm"></div><!-- Top Bar -->
+   <header class="w-full flex items-center justify-between px-4 md:px-8 py-3 border-b border-[#1a1a1a] bg-[#0a0a0a]/95 backdrop-blur-sm z-50 relative" style="flex-shrink:0">
+    <div class="flex items-center gap-3">
+     <div class="w-10 h-10 bg-[#f5c518] rounded-lg flex items-center justify-center relative overflow-hidden group cursor-pointer" id="logo-icon" title="Logo Julio">
+      <svg viewbox="0 0 100 100" class="w-6 h-6" style="filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3))"><!-- Flame black on yellow --> <defs>
+        <lineargradient id="flameGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+         <stop offset="0%" style="stop-color:#1a1a1a;stop-opacity:1" />
+         <stop offset="50%" style="stop-color:#2a2a2a;stop-opacity:1" />
+         <stop offset="100%" style="stop-color:#0a0a0a;stop-opacity:1" />
+        </lineargradient>
+       </defs> <!-- Main flame --> <path d="M 50 20 Q 65 35 65 55 Q 65 75 50 80 Q 35 75 35 55 Q 35 35 50 20 Z" fill="url(#flameGrad)" /> <!-- Inner glow --> <path d="M 50 30 Q 60 40 60 55 Q 60 70 50 75 Q 40 70 40 55 Q 40 40 50 30 Z" fill="#1a1a1a" opacity="0.6" /> <!-- Spark dots --> <circle cx="48" cy="35" r="1.5" fill="#0a0a0a" /> <circle cx="52" cy="38" r="1" fill="#0a0a0a" />
+      </svg>
+      <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors rounded-lg"></div>
+     </div><span class="font-bold text-lg tracking-tight" id="header-title">JULIO MH15</span>
+    </div><!-- Desktop Nav + Language Selector -->
+    <div class="hidden md:flex items-center gap-6">
+     <nav class="flex items-center gap-6 text-sm font-mono" id="desktop-nav"><a href="#" class="nav-item active" data-page="home" data-i18n-nav="home">Accueil</a> <a href="#" class="nav-item" data-page="about" data-i18n-nav="about">À Propos</a> <a href="#" class="nav-item" data-page="videos" data-i18n-nav="videos">Vidéos</a> <a href="#" class="nav-item" data-page="gallery" data-i18n-nav="gallery">Galerie</a> <a href="#" class="nav-item" data-page="blog" data-i18n-nav="blog">Blog</a> <a href="#" class="nav-item" data-page="projects" data-i18n-nav="projects">Projets</a> <a href="#" class="nav-item" data-page="announce" data-i18n-nav="announce">Annonces</a> <a href="#" class="nav-item" data-page="stats" data-i18n-nav="stats">Stats</a> <a href="#" class="nav-item" data-page="contact" data-i18n-nav="contact">Contact</a>
+     </nav>
+     <div class="pl-4 border-l border-[#1a1a1a]" id="lang-selector-header">
+      <div class="lang-selector" id="lang-selector-header-group"></div>
+     </div>
+    </div><!-- Mobile Menu Toggle --> <button id="menu-toggle" class="md:hidden text-[#e5e5e5]"><i data-lucide="menu" style="width:24px;height:24px"></i></button>
+   </header><!-- Mobile Nav Drawer -->
+   <div id="mobile-nav" class="fixed inset-0 bg-[#0a0a0a]/98 z-50 flex flex-col items-center justify-center gap-6 text-xl font-mono" style="display:none"><button id="menu-close" class="absolute top-4 right-4 text-[#e5e5e5]"><i data-lucide="x" style="width:28px;height:28px"></i></button> <a href="#" class="nav-item text-[#f5c518]" data-page="home" data-i18n-nav="home">Accueil</a> <a href="#" class="nav-item" data-page="about" data-i18n-nav="about">À Propos</a> <a href="#" class="nav-item" data-page="videos" data-i18n-nav="videos">Vidéos</a> <a href="#" class="nav-item" data-page="gallery" data-i18n-nav="gallery">Galerie</a> <a href="#" class="nav-item" data-page="blog" data-i18n-nav="blog">Blog</a> <a href="#" class="nav-item" data-page="projects" data-i18n-nav="projects">Projets</a> <a href="#" class="nav-item" data-page="announce" data-i18n-nav="announce">Annonces</a> <a href="#" class="nav-item" data-page="stats" data-i18n-nav="stats">Stats</a> <a href="#" class="nav-item" data-page="contact" data-i18n-nav="contact">Contact</a>
+    <div class="mt-8 flex gap-2" id="lang-selector-mobile"></div>
+   </div><!-- Main Content Area -->
+   <main id="main-content" class="flex-1 overflow-y-auto overflow-x-hidden relative" style="scroll-behavior:smooth"><!-- ==================== HOME ==================== -->
+    <section id="page-home" class="section-visible"><!-- Hero -->
+     <div class="relative w-full" style="min-height:500px">
+      <div class="absolute inset-0 bg-gradient-to-br from-[#0a0a0a] via-[#111] to-[#0a0a0a]"></div>
+      <div class="absolute top-20 right-10 w-64 h-64 bg-[#f5c518]/5 rounded-full blur-3xl"></div>
+      <div class="absolute bottom-10 left-10 w-48 h-48 bg-[#f5c518]/3 rounded-full blur-3xl"></div>
+      <div class="relative z-10 flex flex-col items-center justify-center text-center px-6 py-20 md:py-32">
+       <div class="inline-flex items-center gap-2 bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-4 py-1.5 mb-6 anim-fade" style="animation-delay:0.1s"><span class="w-2 h-2 bg-[#f5c518] rounded-full animate-pulse"></span> <span class="text-[#f5c518] font-mono text-xs tracking-widest" data-i18n="hero_badge">VISIONNAIRE • CRÉATEUR • ENTREPRENEUR</span>
+       </div>
+       <h1 class="text-4xl md:text-7xl font-extrabold leading-tight anim-fade" style="animation-delay:0.2s" id="hero-title">PRODUCTION VIRTUELLE<br><span class="text-[#f5c518]">SCI-FI &amp; MUSIQUE</span></h1>
+       <p class="mt-6 text-[#888] max-w-2xl text-lg font-mono anim-fade" style="animation-delay:0.35s" id="hero-tagline">Cinéma de science-fiction • Entreprenariat • Musique • Vision du futur</p>
+       <div class="flex gap-4 mt-10 anim-fade" style="animation-delay:0.5s"><button class="btn-primary px-8 py-3 rounded-lg text-sm font-mono flex items-center gap-2" onclick="navigateTo('videos')"> <i data-lucide="play" style="width:16px;height:16px"></i> <span data-i18n="cta_videos">Voir mes vidéos</span> </button> <button class="btn-ghost px-8 py-3 rounded-lg text-sm font-mono flex items-center gap-2" onclick="navigateTo('contact')"> <i data-lucide="mail" style="width:16px;height:16px"></i> <span data-i18n="cta_contact">Me contacter</span> </button>
+       </div>
+      </div>
+     </div><!-- Marquee -->
+     <div class="w-full overflow-hidden border-y border-[#1a1a1a] py-3 bg-[#0d0d0d]">
+      <div class="marquee-track text-sm font-mono text-[#555]"><span class="mx-8" id="marquee-1">🎬 Julio MH15</span><span class="mx-8" id="marquee-2">🚀 Production Virtuelle</span><span class="mx-8" id="marquee-3">🎵 Cinéma • Musique • Vision</span><span class="mx-8" id="marquee-4">💼 Entrepreneuriat Créatif</span><span class="mx-8" id="marquee-5">🎨 Univers Numériques</span> <span class="mx-8" id="marquee-1-dup">🎬 Julio MH15</span><span class="mx-8" id="marquee-2-dup">🚀 Production Virtuelle</span><span class="mx-8" id="marquee-3-dup">🎵 Cinéma • Musique • Vision</span><span class="mx-8" id="marquee-4-dup">💼 Entrepreneuriat Créatif</span><span class="mx-8" id="marquee-5-dup">🎨 Univers Numériques</span>
+      </div>
+     </div><!-- Domains Grid -->
+     <div class="px-6 md:px-12 py-16">
+      <h2 class="text-2xl md:text-3xl font-bold mb-2" data-i18n="my_domains">Mes Domaines</h2>
+      <p class="text-[#666] font-mono text-sm mb-10" data-i18n="explore_universes">Explorez chaque univers</p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 anim-stagger">
+       <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 cursor-pointer" onclick="navigateTo('videos')">
+        <div class="w-12 h-12 bg-[#f5c518]/10 rounded-lg flex items-center justify-center mb-4">
+         <i data-lucide="film" style="width:24px;height:24px;color:#f5c518"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2" data-i18n="cinema_scifi">Cinéma Sci-Fi</h3>
+        <p class="text-[#666] text-sm font-mono" data-i18n="cinema_desc">Production virtuelle, effets visuels et univers futuristes</p>
+       </div>
+       <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 cursor-pointer" onclick="navigateTo('videos')">
+        <div class="w-12 h-12 bg-[#f5c518]/10 rounded-lg flex items-center justify-center mb-4">
+         <i data-lucide="music" style="width:24px;height:24px;color:#f5c518"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2" data-i18n="music">Musique</h3>
+        <p class="text-[#666] text-sm font-mono" data-i18n="music_desc">Compositions, clips et productions sonores</p>
+       </div>
+       <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 cursor-pointer" onclick="navigateTo('projects')">
+        <div class="w-12 h-12 bg-[#f5c518]/10 rounded-lg flex items-center justify-center mb-4">
+         <i data-lucide="briefcase" style="width:24px;height:24px;color:#f5c518"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2" data-i18n="entrepreneurship">Entrepreneuriat</h3>
+        <p class="text-[#666] text-sm font-mono" data-i18n="business_desc">Projets, visions et opportunités business</p>
+       </div>
+       <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 cursor-pointer" onclick="navigateTo('gallery')">
+        <div class="w-12 h-12 bg-[#f5c518]/10 rounded-lg flex items-center justify-center mb-4">
+         <i data-lucide="image" style="width:24px;height:24px;color:#f5c518"></i>
+        </div>
+        <h3 class="font-bold text-lg mb-2" data-i18n="gallery">Galerie</h3>
+        <p class="text-[#666] text-sm font-mono" data-i18n="gallery_desc">Portfolio visuel et créations artistiques</p>
+       </div>
+      </div>
+     </div><!-- Quick Stats -->
+     <div class="px-6 md:px-12 py-12 bg-[#0d0d0d] border-y border-[#1a1a1a]">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+       <div>
+        <div class="text-3xl font-extrabold text-[#f5c518]" id="stat-videos-count">
+         0
+        </div>
+        <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_videos">
+         Vidéos
+        </div>
+       </div>
+       <div>
+        <div class="text-3xl font-extrabold text-[#f5c518]" id="stat-photos-count">
+         0
+        </div>
+        <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_photos">
+         Photos
+        </div>
+       </div>
+       <div>
+        <div class="text-3xl font-extrabold text-[#f5c518]" id="stat-projects-count">
+         0
+        </div>
+        <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_projects">
+         Projets
+        </div>
+       </div>
+       <div>
+        <div class="text-3xl font-extrabold text-[#f5c518]" id="stat-articles-count">
+         0
+        </div>
+        <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_articles">
+         Articles
+        </div>
+       </div>
+      </div>
+     </div><!-- Recent Content -->
+     <div class="px-6 md:px-12 py-16">
+      <h2 class="text-2xl font-bold mb-8" data-i18n="recent_content">Contenu Récent</h2>
+      <div id="recent-content" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+       <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-3" data-i18n="add_content">
+        Ajoutez du contenu via les sections Vidéos, Galerie, Blog ou Projets
+       </div>
+      </div>
+     </div>
+    </section><!-- ==================== ABOUT ==================== -->
+    <section id="page-about" class="section-hidden px-6 md:px-12 py-10">
+     <div class="max-w-4xl mx-auto">
+      <h2 class="text-4xl font-bold mb-2" data-i18n="about">À Propos</h2>
+      <p class="text-[#f5c518] font-mono text-sm mb-12" data-i18n="discover_me">Découvrez qui je suis et ma vision</p><!-- Profile Card -->
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 md:p-12 mb-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+       <div>
+        <div class="w-32 h-32 bg-gradient-to-br from-[#f5c518] to-[#333] rounded-xl flex items-center justify-center text-6xl font-bold text-black mb-6" id="profile-avatar">
+         J
+        </div>
+        <h3 class="text-2xl font-bold" id="profile-name">Julio M. MESSOHOUNSOUNOU</h3>
+        <p class="text-[#f5c518] font-mono text-sm mt-1">Julio MH15</p>
+       </div>
+       <div>
+        <h4 class="font-bold text-lg mb-4" data-i18n="who_am_i">Qui suis-je?</h4>
+        <p class="text-[#888] font-mono text-sm leading-relaxed mb-4" id="profile-bio">Innovateur passionné par la production virtuelle de cinéma science-fiction, l'entrepreneuriat digital et la composition musicale. Créateur de contenu de haut niveau optimisé pour le web.</p>
+        <h4 class="font-bold text-lg mb-3 mt-6" data-i18n="my_vision">Ma Vision</h4>
+        <p class="text-[#888] font-mono text-sm leading-relaxed" id="profile-vision">Créer des univers numériques immersifs qui repoussent les limites de la technologie et de la créativité.</p>
+       </div>
+      </div><!-- Specialties -->
+      <div class="mb-12">
+       <h3 class="font-bold text-xl mb-6" data-i18n="my_specialties">Mes Spécialités</h3>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-4 anim-stagger">
+        <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+         <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-[#f5c518]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+           <i data-lucide="film" style="width:20px;height:20px;color:#f5c518"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-sm" id="spec-1">Production Virtuelle Cinéma</h4>
+           <p class="text-[#666] font-mono text-xs mt-1">Création d'univers sci-fi et effets visuels haute résolution</p>
+          </div>
+         </div>
+        </div>
+        <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+         <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-[#f5c518]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+           <i data-lucide="rocket" style="width:20px;height:20px;color:#f5c518"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-sm" id="spec-2">Cinéma Science-Fiction</h4>
+           <p class="text-[#666] font-mono text-xs mt-1">Narration futuriste et worldbuilding immersif</p>
+          </div>
+         </div>
+        </div>
+        <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+         <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-[#f5c518]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+           <i data-lucide="briefcase" style="width:20px;height:20px;color:#f5c518"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-sm" id="spec-3">Entrepreneuriat Digital</h4>
+           <p class="text-[#666] font-mono text-xs mt-1">Stratégies innovantes et projets transformateurs</p>
+          </div>
+         </div>
+        </div>
+        <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+         <div class="flex items-start gap-3">
+          <div class="w-10 h-10 bg-[#f5c518]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+           <i data-lucide="music" style="width:20px;height:20px;color:#f5c518"></i>
+          </div>
+          <div>
+           <h4 class="font-bold text-sm" id="spec-4">Composition Musicale</h4>
+           <p class="text-[#666] font-mono text-xs mt-1">Bandes sonores originales et productions audio</p>
+          </div>
+         </div>
+        </div>
+       </div>
+      </div><!-- Keywords Section for SEO -->
+      <div class="bg-[#0d0d0d] border border-[#1a1a1a] rounded-xl p-6">
+       <h3 class="font-bold text-lg mb-4" data-i18n="expertise">Domaines d'Expertise</h3>
+       <div class="flex flex-wrap gap-2">
+        <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Production Virtuelle</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Cinéma Sci-Fi</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">VFX</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Entrepreneuriat</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Musique Numérique</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Direction Artistique</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Création Visuelle</span> <span class="bg-[#f5c518]/10 border border-[#f5c518]/20 rounded-full px-3 py-1.5 text-xs font-mono text-[#f5c518]">Production Audiovisuelle</span>
+       </div>
+      </div>
+     </div>
+    </section>
+    <section id="page-videos" class="section-hidden px-6 md:px-12 py-10">
+     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div>
+       <h2 class="text-3xl font-bold" data-i18n="videos_youtube">Vidéos <span class="text-[#f5c518]">YouTube</span></h2>
+       <p class="text-[#666] font-mono text-sm mt-1" data-i18n="video_portfolio">Mon portfolio vidéo</p>
+      </div>
+      <div class="flex gap-3"><select id="video-filter" class="text-sm" style="max-width:160px"> <option value="all" data-i18n="all_categories">Toutes catégories</option> <option value="cinema" data-i18n="cinema_scifi">Cinéma Sci-Fi</option> <option value="musique" data-i18n="music">Musique</option> <option value="business" data-i18n="business">Entrepreneuriat</option> <option value="vlog" data-i18n="vlog">Vlog</option> </select> <button class="btn-primary px-4 py-2 rounded-lg text-sm font-mono flex items-center gap-2" onclick="openModal('add-video')"> <i data-lucide="plus" style="width:16px;height:16px"></i> <span data-i18n="add">Ajouter</span> </button>
+      </div>
+     </div>
+     <div id="videos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-2 lg:col-span-3"><i data-lucide="video" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i> <span data-i18n="no_videos">Aucune vidéo encore. Cliquez "Ajouter" pour commencer.</span>
+      </div>
+     </div>
+    </section><!-- ==================== GALLERY ==================== -->
+    <section id="page-gallery" class="section-hidden px-6 md:px-12 py-10">
+     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div>
+       <h2 class="text-3xl font-bold" data-i18n="gallery_photos">Galerie <span class="text-[#f5c518]">Photos</span></h2>
+       <p class="text-[#666] font-mono text-sm mt-1" data-i18n="visual_portfolio">Portfolio visuel optimisé SEO</p>
+      </div><button class="btn-primary px-4 py-2 rounded-lg text-sm font-mono flex items-center gap-2" onclick="openModal('add-photo')"> <i data-lucide="plus" style="width:16px;height:16px"></i> <span data-i18n="add_photo">Ajouter Photo</span> </button>
+     </div>
+     <div id="gallery-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-2 md:col-span-3 lg:col-span-4"><i data-lucide="image" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i> <span data-i18n="no_photos">Aucune photo. Cliquez "Ajouter Photo" pour commencer.</span>
+      </div>
+     </div>
+    </section><!-- ==================== BLOG ==================== -->
+    <section id="page-blog" class="section-hidden px-6 md:px-12 py-10">
+     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div>
+       <h2 class="text-3xl font-bold" data-i18n="blog_profile">Blog <span class="text-[#f5c518]">&amp; Profil</span></h2>
+       <p class="text-[#666] font-mono text-sm mt-1" data-i18n="articles_bio">Articles, biographie et vision</p>
+      </div><button class="btn-primary px-4 py-2 rounded-lg text-sm font-mono flex items-center gap-2" onclick="openModal('add-article')"> <i data-lucide="plus" style="width:16px;height:16px"></i> <span data-i18n="new_article">Nouvel Article</span> </button>
+     </div><!-- Bio Card -->
+     <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 md:p-8 mb-8">
+      <div class="flex items-center gap-4 mb-4">
+       <div class="w-16 h-16 bg-[#f5c518] rounded-full flex items-center justify-center text-black text-2xl font-bold" id="bio-avatar">
+        M
+       </div>
+       <div>
+        <h3 class="font-bold text-xl" id="bio-name">Media Hub</h3>
+        <p class="text-[#f5c518] font-mono text-sm" data-i18n="bio_subtitle">Producteur Virtuel • Entrepreneur • Musicien</p>
+       </div>
+      </div>
+      <p class="text-[#999] font-mono text-sm leading-relaxed" id="bio-content" data-i18n="bio_default">Passionné de production virtuelle de cinéma science-fiction, d'entrepreneuriat et de musique. Ajoutez votre biographie complète via le panneau d'édition.</p>
+     </div>
+     <h3 class="font-bold text-xl mb-4" data-i18n="articles">Articles</h3>
+     <div id="blog-grid" class="space-y-4">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm"><i data-lucide="file-text" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i> <span data-i18n="no_articles">Aucun article. Cliquez "Nouvel Article" pour partager votre vision.</span>
+      </div>
+     </div>
+    </section><!-- ==================== PROJECTS ==================== -->
+    <section id="page-projects" class="section-hidden px-6 md:px-12 py-10">
+     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div>
+       <h2 class="text-3xl font-bold" data-i18n="projects_sell">Projets <span class="text-[#f5c518]">à Vendre</span></h2>
+       <p class="text-[#666] font-mono text-sm mt-1" data-i18n="creations_available">Mes créations et services disponibles</p>
+      </div><button class="btn-primary px-4 py-2 rounded-lg text-sm font-mono flex items-center gap-2" onclick="openModal('add-project')"> <i data-lucide="plus" style="width:16px;height:16px"></i> <span data-i18n="add_project">Ajouter Projet</span> </button>
+     </div>
+     <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-2 lg:col-span-3"><i data-lucide="package" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i> <span data-i18n="no_projects">Aucun projet à vendre. Cliquez "Ajouter Projet" pour exposer vos créations.</span>
+      </div>
+     </div>
+    </section><!-- ==================== ANNOUNCEMENTS ==================== -->
+    <section id="page-announce" class="section-hidden px-6 md:px-12 py-10">
+     <div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+      <div>
+       <h2 class="text-3xl font-bold" data-i18n="announcements">Annonces <span class="text-[#f5c518]">&amp; Événements</span></h2>
+       <p class="text-[#666] font-mono text-sm mt-1" data-i18n="upcoming_events">Prochains événements et actualités</p>
+      </div><button class="btn-primary px-4 py-2 rounded-lg text-sm font-mono flex items-center gap-2" onclick="openModal('add-announce')"> <i data-lucide="plus" style="width:16px;height:16px"></i> <span data-i18n="new_announce">Nouvelle Annonce</span> </button>
+     </div>
+     <div id="announce-list" class="space-y-4">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm"><i data-lucide="megaphone" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i> <span data-i18n="no_announces">Aucune annonce. Cliquez "Nouvelle Annonce" pour partager vos événements à venir.</span>
+      </div>
+     </div>
+    </section><!-- ==================== STATS ==================== -->
+    <section id="page-stats" class="section-hidden px-6 md:px-12 py-10">
+     <h2 class="text-3xl font-bold mb-2" data-i18n="statistics">Statistiques <span class="text-[#f5c518]">du Site</span></h2>
+     <p class="text-[#666] font-mono text-sm mb-8" data-i18n="stats_overview">Aperçu de votre contenu et performance</p>
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-5 text-center card-hover"><i data-lucide="video" style="width:24px;height:24px;color:#f5c518;margin:0 auto 8px;display:block"></i>
+       <div class="text-2xl font-bold text-[#f5c518]" id="s-videos">
+        0
+       </div>
+       <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_videos">
+        Vidéos
+       </div>
+      </div>
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-5 text-center card-hover"><i data-lucide="image" style="width:24px;height:24px;color:#f5c518;margin:0 auto 8px;display:block"></i>
+       <div class="text-2xl font-bold text-[#f5c518]" id="s-photos">
+        0
+       </div>
+       <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_photos">
+        Photos
+       </div>
+      </div>
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-5 text-center card-hover"><i data-lucide="package" style="width:24px;height:24px;color:#f5c518;margin:0 auto 8px;display:block"></i>
+       <div class="text-2xl font-bold text-[#f5c518]" id="s-projects">
+        0
+       </div>
+       <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_projects">
+        Projets
+       </div>
+      </div>
+      <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-5 text-center card-hover"><i data-lucide="file-text" style="width:24px;height:24px;color:#f5c518;margin:0 auto 8px;display:block"></i>
+       <div class="text-2xl font-bold text-[#f5c518]" id="s-articles">
+        0
+       </div>
+       <div class="text-[#666] font-mono text-xs mt-1" data-i18n="stat_articles">
+        Articles
+       </div>
+      </div>
+     </div><!-- Content Breakdown -->
+     <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-6 mb-6">
+      <h3 class="font-bold mb-4" data-i18n="content_breakdown">Répartition du Contenu</h3>
+      <div id="stats-bars" class="space-y-3"></div>
+     </div><!-- Visit Log -->
+     <div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-6">
+      <h3 class="font-bold mb-4" data-i18n="recent_activity">Activité Récente</h3>
+      <div id="activity-log" class="space-y-2 font-mono text-sm text-[#888]">
+       <p data-i18n="activity_default">Les actions sur votre site apparaîtront ici.</p>
+      </div>
+     </div>
+    </section><!-- ==================== CONTACT ==================== -->
+    <section id="page-contact" class="section-hidden px-6 md:px-12 py-10">
+     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div>
+       <h2 class="text-3xl font-bold mb-2" data-i18n="contact_me">Me <span class="text-[#f5c518]">Contacter</span></h2>
+       <p class="text-[#666] font-mono text-sm mb-8" data-i18n="send_message">Envoyez-moi un message</p>
+       <form id="contact-form" class="space-y-4">
+        <div>
+         <label for="cf-name" data-i18n="fullname">Nom complet</label><input type="text" id="cf-name" placeholder="Votre nom" required>
+        </div>
+        <div>
+         <label for="cf-email" data-i18n="email">Email</label><input type="email" id="cf-email" placeholder="votre@email.com" required>
+        </div>
+        <div>
+         <label for="cf-subject" data-i18n="subject">Sujet</label> <select id="cf-subject"> <option data-i18n="subject_cinema">Collaboration Cinéma</option> <option data-i18n="subject_music">Projet Musical</option> <option data-i18n="subject_buy">Achat de Projet</option> <option data-i18n="subject_business">Entrepreneuriat</option> <option data-i18n="subject_other">Autre</option> </select>
+        </div>
+        <div>
+         <label for="cf-message" data-i18n="message">Message</label><textarea id="cf-message" rows="4" placeholder="Votre message..." required></textarea>
+        </div><button type="submit" class="btn-primary px-8 py-3 rounded-lg text-sm font-mono w-full flex items-center justify-center gap-2"> <i data-lucide="send" style="width:16px;height:16px"></i> <span data-i18n="send">Envoyer</span> </button>
+       </form>
+      </div>
+      <div>
+       <h3 class="font-bold text-xl mb-6" data-i18n="social_networks">Réseaux <span class="text-[#f5c518]">Sociaux</span></h3>
+       <div id="social-links" class="space-y-3"><a id="link-youtube" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-[#141414] border border-[#1e1e1e] rounded-xl p-4 card-hover">
+         <div class="w-10 h-10 bg-red-600/20 rounded-lg flex items-center justify-center">
+          <i data-lucide="youtube" style="width:20px;height:20px;color:#dc2626"></i>
+         </div>
+         <div>
+          <div class="font-bold text-sm">
+           YouTube
+          </div>
+          <div class="text-[#666] font-mono text-xs" id="social-youtube-url" data-i18n="configure_panel">
+           Configurer via le panneau d'édition
+          </div>
+         </div></a> <a id="link-instagram" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-[#141414] border border-[#1e1e1e] rounded-xl p-4 card-hover">
+         <div class="w-10 h-10 bg-pink-600/20 rounded-lg flex items-center justify-center">
+          <i data-lucide="instagram" style="width:20px;height:20px;color:#db2777"></i>
+         </div>
+         <div>
+          <div class="font-bold text-sm">
+           Instagram
+          </div>
+          <div class="text-[#666] font-mono text-xs" id="social-instagram-url" data-i18n="configure_panel">
+           Configurer via le panneau d'édition
+          </div>
+         </div></a> <a id="link-twitter" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-[#141414] border border-[#1e1e1e] rounded-xl p-4 card-hover">
+         <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+          <i data-lucide="twitter" style="width:20px;height:20px;color:#3b82f6"></i>
+         </div>
+         <div>
+          <div class="font-bold text-sm">
+           X / Twitter
+          </div>
+          <div class="text-[#666] font-mono text-xs" id="social-twitter-url" data-i18n="configure_panel">
+           Configurer via le panneau d'édition
+          </div>
+         </div></a> <a id="link-tiktok" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-[#141414] border border-[#1e1e1e] rounded-xl p-4 card-hover">
+         <div class="w-10 h-10 bg-[#f5c518]/20 rounded-lg flex items-center justify-center">
+          <i data-lucide="music-2" style="width:20px;height:20px;color:#f5c518"></i>
+         </div>
+         <div>
+          <div class="font-bold text-sm">
+           TikTok
+          </div>
+          <div class="text-[#666] font-mono text-xs" id="social-tiktok-url" data-i18n="configure_panel">
+           Configurer via le panneau d'édition
+          </div>
+         </div></a> <a id="link-linkedin" href="#" target="_blank" rel="noopener noreferrer" class="flex items-center gap-4 bg-[#141414] border border-[#1e1e1e] rounded-xl p-4 card-hover">
+         <div class="w-10 h-10 bg-blue-700/20 rounded-lg flex items-center justify-center">
+          <i data-lucide="linkedin" style="width:20px;height:20px;color:#1d4ed8"></i>
+         </div>
+         <div>
+          <div class="font-bold text-sm">
+           LinkedIn
+          </div>
+          <div class="text-[#666] font-mono text-xs" id="social-linkedin-url" data-i18n="configure_panel">
+           Configurer via le panneau d'édition
+          </div>
+         </div></a>
+       </div>
+       <div class="mt-8 bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+        <h4 class="font-bold text-sm mb-3">📧 <span data-i18n="direct_email">Email Direct</span></h4>
+        <p class="text-[#f5c518] font-mono text-sm" id="display-email" data-i18n="configure_panel">Configurer via le panneau d'édition</p>
+       </div><!-- Audio Player -->
+       <div class="mt-6 bg-[#141414] border border-[#1e1e1e] rounded-xl p-5">
+        <h4 class="font-bold text-sm mb-3">🎵 <span data-i18n="ambient_sound">Ambiance Sonore</span></h4>
+        <div class="flex items-center gap-3"><button id="audio-toggle" class="w-10 h-10 bg-[#f5c518]/10 rounded-lg flex items-center justify-center" onclick="toggleAudio()"> <i data-lucide="volume-2" style="width:20px;height:20px;color:#f5c518" id="audio-icon"></i> </button>
+         <div class="flex-1">
+          <div class="text-sm text-[#888] font-mono" data-i18n="scifi_sound">
+           Son ambiant Sci-Fi
+          </div><input type="range" id="audio-volume" min="0" max="100" value="30" class="w-full mt-1" style="accent-color:#f5c518" oninput="setAudioVolume(this.value)">
+         </div>
+        </div>
+       </div>
+      </div>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="w-full border-t border-[#1a1a1a] px-6 py-3 flex items-center justify-between bg-[#0a0a0a] text-[#555] font-mono text-xs relative z-10 flex-shrink-0"><span id="footer-brand">© 2025 Julio MH15 - All Rights Reserved</span> <span data-i18n="footer_subtitle">Production Virtuelle Cinéma • Entrepreneuriat • Musique</span>
+   </footer><!-- Admin Panel Toggle (Hidden from viewers) --> <button id="admin-panel-toggle" class="fixed bottom-6 right-6 w-12 h-12 bg-[#f5c518] text-black rounded-full flex items-center justify-center font-bold text-lg hover:scale-110 transition-transform z-40 shadow-lg" title="Admin" style="display: none;"> ⚙️ </button>
+  </div><!-- ==================== MODALS ==================== --> <!-- Add Video Modal -->
+  <div class="modal-overlay" id="modal-add-video">
+   <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+     <h3 class="font-bold text-lg" data-i18n="add_video">Ajouter une Vidéo</h3><button onclick="closeModal('add-video')" class="text-[#666] hover:text-white"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+    </div>
+    <form id="form-video" class="space-y-4">
+     <div>
+      <label for="v-title" data-i18n="title">Titre</label><input type="text" id="v-title" placeholder="Titre de la vidéo" required>
+     </div>
+     <div>
+      <label for="v-desc" data-i18n="description">Description (SEO)</label><textarea id="v-desc" rows="3" placeholder="Description détaillée pour le référencement..." required></textarea>
+     </div>
+     <div>
+      <label for="v-url" data-i18n="youtube_url">URL YouTube</label><input type="url" id="v-url" placeholder="https://youtube.com/watch?v=..." required>
+     </div>
+     <div>
+      <label for="v-thumb" data-i18n="thumbnail_url">URL Miniature</label><input type="url" id="v-thumb" placeholder="https://img.youtube.com/vi/.../maxresdefault.jpg">
+     </div>
+     <div>
+      <label for="v-cat" data-i18n="category">Catégorie</label> <select id="v-cat"><option value="cinema" data-i18n="cinema_scifi">Cinéma Sci-Fi</option><option value="musique" data-i18n="music">Musique</option><option value="business" data-i18n="business">Entrepreneuriat</option><option value="vlog" data-i18n="vlog">Vlog</option></select>
+     </div><button type="submit" class="btn-primary px-6 py-3 rounded-lg text-sm font-mono w-full" id="btn-save-video" data-i18n="save">Sauvegarder</button>
+    </form>
+   </div>
+  </div><!-- Add Photo Modal -->
+  <div class="modal-overlay" id="modal-add-photo">
+   <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+     <h3 class="font-bold text-lg" data-i18n="add_photo">Ajouter une Photo</h3><button onclick="closeModal('add-photo')" class="text-[#666] hover:text-white"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+    </div>
+    <form id="form-photo" class="space-y-4">
+     <div>
+      <label for="p-title" data-i18n="alt_text">Titre / Alt Text (SEO)</label><input type="text" id="p-title" placeholder="Description de l'image" required>
+     </div>
+     <div>
+      <label for="p-desc" data-i18n="description">Description</label><textarea id="p-desc" rows="2" placeholder="Contexte de l'image..."></textarea>
+     </div>
+     <div>
+      <label for="p-url" data-i18n="image_url">URL de l'image</label><input type="url" id="p-url" placeholder="https://..." required>
+     </div>
+     <div>
+      <label for="p-cat" data-i18n="category">Catégorie</label> <select id="p-cat"><option value="cinema" data-i18n="cinema">Cinéma</option><option value="musique" data-i18n="music">Musique</option><option value="portrait" data-i18n="portrait">Portrait</option><option value="autre" data-i18n="other">Autre</option></select>
+     </div><button type="submit" class="btn-primary px-6 py-3 rounded-lg text-sm font-mono w-full" id="btn-save-photo" data-i18n="save">Sauvegarder</button>
+    </form>
+   </div>
+  </div><!-- Add Article Modal -->
+  <div class="modal-overlay" id="modal-add-article">
+   <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+     <h3 class="font-bold text-lg" data-i18n="new_article">Nouvel Article</h3><button onclick="closeModal('add-article')" class="text-[#666] hover:text-white"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+    </div>
+    <form id="form-article" class="space-y-4">
+     <div>
+      <label for="a-title" data-i18n="title">Titre</label><input type="text" id="a-title" placeholder="Titre de l'article" required>
+     </div>
+     <div>
+      <label for="a-desc" data-i18n="content">Contenu</label><textarea id="a-desc" rows="6" placeholder="Rédigez votre article... (Les liens HTTP(s):// seront cliquables)" required></textarea>
+     </div>
+     <div>
+      <label for="a-cat" data-i18n="category">Catégorie</label> <select id="a-cat"><option value="bio" data-i18n="biography">Biographie</option><option value="vision" data-i18n="vision">Vision</option><option value="tech" data-i18n="technology">Technologie</option><option value="musique" data-i18n="music">Musique</option><option value="business" data-i18n="business">Business</option></select>
+     </div><button type="submit" class="btn-primary px-6 py-3 rounded-lg text-sm font-mono w-full" id="btn-save-article" data-i18n="save">Sauvegarder</button>
+    </form>
+   </div>
+  </div><!-- Add Project Modal -->
+  <div class="modal-overlay" id="modal-add-project">
+   <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+     <h3 class="font-bold text-lg" data-i18n="add_project">Ajouter un Projet</h3><button onclick="closeModal('add-project')" class="text-[#666] hover:text-white"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+    </div>
+    <form id="form-project" class="space-y-4">
+     <div>
+      <label for="pr-title" data-i18n="project_name">Nom du Projet</label><input type="text" id="pr-title" placeholder="Nom du projet" required>
+     </div>
+     <div>
+      <label for="pr-desc" data-i18n="description">Description</label><textarea id="pr-desc" rows="3" placeholder="Décrivez le projet..." required></textarea>
+     </div>
+     <div>
+      <label for="pr-price" data-i18n="price">Prix</label><input type="text" id="pr-price" placeholder="Ex: 500€ ou Sur demande">
+     </div>
+     <div>
+      <label for="pr-url" data-i18n="link_url">Lien / URL</label><input type="url" id="pr-url" placeholder="https://...">
+     </div>
+     <div>
+      <label for="pr-cat" data-i18n="category">Catégorie</label> <select id="pr-cat"><option value="cinema" data-i18n="cinema_production">Production Cinéma</option><option value="musique" data-i18n="music">Musique</option><option value="tech" data-i18n="tech_app">Tech / App</option><option value="service" data-i18n="service">Service</option></select>
+     </div>
+     <div>
+      <label for="pr-status" data-i18n="status">Statut</label> <select id="pr-status"><option value="available" data-i18n="available">Disponible</option><option value="sold" data-i18n="sold">Vendu</option><option value="coming" data-i18n="coming">Bientôt</option></select>
+     </div><button type="submit" class="btn-primary px-6 py-3 rounded-lg text-sm font-mono w-full" id="btn-save-project" data-i18n="save">Sauvegarder</button>
+    </form>
+   </div>
+  </div><!-- Add Announcement Modal -->
+  <div class="modal-overlay" id="modal-add-announce">
+   <div class="modal-content">
+    <div class="flex items-center justify-between mb-6">
+     <h3 class="font-bold text-lg" data-i18n="new_announce">Nouvelle Annonce</h3><button onclick="closeModal('add-announce')" class="text-[#666] hover:text-white"><i data-lucide="x" style="width:20px;height:20px"></i></button>
+    </div>
+    <form id="form-announce" class="space-y-4">
+     <div>
+      <label for="an-title" data-i18n="title">Titre</label><input type="text" id="an-title" placeholder="Titre de l'annonce" required>
+     </div>
+     <div>
+      <label for="an-desc" data-i18n="details">Détails</label><textarea id="an-desc" rows="3" placeholder="Détails de l'annonce..." required></textarea>
+     </div>
+     <div>
+      <label for="an-date" data-i18n="date">Date</label><input type="date" id="an-date">
+     </div>
+     <div>
+      <label for="an-cat" data-i18n="type">Type</label> <select id="an-cat"><option value="event" data-i18n="event">Événement</option><option value="release" data-i18n="release">Sortie</option><option value="collab" data-i18n="collaboration">Collaboration</option><option value="news" data-i18n="news">Actualité</option></select>
+     </div><button type="submit" class="btn-primary px-6 py-3 rounded-lg text-sm font-mono w-full" id="btn-save-announce" data-i18n="save">Sauvegarder</button>
+    </form>
+   </div>
+  </div><!-- Delete Confirmation Modal -->
+  <div class="modal-overlay" id="modal-confirm-delete">
+   <div class="modal-content text-center"><i data-lucide="alert-triangle" style="width:48px;height:48px;color:#f5c518;margin:0 auto 16px;display:block"></i>
+    <h3 class="font-bold text-lg mb-2" data-i18n="confirm_delete">Confirmer la suppression</h3>
+    <p class="text-[#888] font-mono text-sm mb-6" data-i18n="delete_warning">Cette action est irréversible.</p>
+    <div class="flex gap-3 justify-center"><button class="btn-ghost px-6 py-2 rounded-lg text-sm font-mono" onclick="closeModal('confirm-delete')" data-i18n="cancel">Annuler</button> <button class="bg-red-600 text-white px-6 py-2 rounded-lg text-sm font-mono font-bold hover:bg-red-500 transition-colors" id="btn-confirm-delete" data-i18n="delete">Supprimer</button>
+    </div>
+   </div>
+  </div>
+  <script>
+// ===================== INTERNATIONALIZATION =====================
+const i18n = {
+  fr: {
+    hero_badge: 'VISIONNAIRE • CRÉATEUR • ENTREPRENEUR',
+    cta_videos: 'Voir mes vidéos',
+    cta_contact: 'Me contacter',
+    my_domains: 'Mes Domaines',
+    explore_universes: 'Explorez chaque univers',
+    cinema_scifi: 'Cinéma Sci-Fi',
+    cinema_desc: 'Production virtuelle, effets visuels et univers futuristes',
+    music: 'Musique',
+    music_desc: 'Compositions, clips et productions sonores',
+    entrepreneurship: 'Entrepreneuriat',
+    business_desc: 'Projets, visions et opportunités business',
+    gallery: 'Galerie',
+    gallery_desc: 'Portfolio visuel et créations artistiques',
+    stat_videos: 'Vidéos',
+    stat_photos: 'Photos',
+    stat_projects: 'Projets',
+    stat_articles: 'Articles',
+    recent_content: 'Contenu Récent',
+    add_content: 'Ajoutez du contenu via les sections Vidéos, Galerie, Blog ou Projets',
+    about: 'À Propos',
+    discover_me: 'Découvrez qui je suis et ma vision',
+    who_am_i: 'Qui suis-je?',
+    my_vision: 'Ma Vision',
+    my_specialties: 'Mes Spécialités',
+    expertise: 'Domaines d\'Expertise',
+    videos_youtube: 'Vidéos YouTube',
+    video_portfolio: 'Mon portfolio vidéo',
+    all_categories: 'Toutes catégories',
+    business: 'Entrepreneuriat',
+    vlog: 'Vlog',
+    add: 'Ajouter',
+    no_videos: 'Aucune vidéo encore. Cliquez "Ajouter" pour commencer.',
+    gallery_photos: 'Galerie Photos',
+    visual_portfolio: 'Portfolio visuel optimisé SEO',
+    add_photo: 'Ajouter Photo',
+    no_photos: 'Aucune photo. Cliquez "Ajouter Photo" pour commencer.',
+    blog_profile: 'Blog & Profil',
+    articles_bio: 'Articles, biographie et vision',
+    new_article: 'Nouvel Article',
+    bio_subtitle: 'Producteur Virtuel • Entrepreneur • Musicien',
+    bio_default: 'Passionné de production virtuelle de cinéma science-fiction, d\'entrepreneuriat et de musique. Ajoutez votre biographie complète via le panneau d\'édition.',
+    articles: 'Articles',
+    no_articles: 'Aucun article. Cliquez "Nouvel Article" pour partager votre vision.',
+    projects_sell: 'Projets à Vendre',
+    creations_available: 'Mes créations et services disponibles',
+    add_project: 'Ajouter Projet',
+    no_projects: 'Aucun projet à vendre. Cliquez "Ajouter Projet" pour exposer vos créations.',
+    announcements: 'Annonces & Événements',
+    upcoming_events: 'Prochains événements et actualités',
+    new_announce: 'Nouvelle Annonce',
+    no_announces: 'Aucune annonce. Cliquez "Nouvelle Annonce" pour partager vos événements à venir.',
+    statistics: 'Statistiques',
+    stats_overview: 'Aperçu de votre contenu et performance',
+    content_breakdown: 'Répartition du Contenu',
+    recent_activity: 'Activité Récente',
+    activity_default: 'Les actions sur votre site apparaîtront ici.',
+    contact_me: 'Me',
+    send_message: 'Envoyez-moi un message',
+    fullname: 'Nom complet',
+    email: 'Email',
+    subject: 'Sujet',
+    subject_cinema: 'Collaboration Cinéma',
+    subject_music: 'Projet Musical',
+    subject_buy: 'Achat de Projet',
+    subject_business: 'Entrepreneuriat',
+    subject_other: 'Autre',
+    message: 'Message',
+    send: 'Envoyer',
+    social_networks: 'Réseaux Sociaux',
+    configure_panel: 'Configurer via le panneau d\'édition',
+    direct_email: 'Email Direct',
+    ambient_sound: 'Ambiance Sonore',
+    scifi_sound: 'Son ambiant Sci-Fi',
+    footer_subtitle: 'Production Virtuelle Cinéma • Entrepreneuriat • Musique',
+    home: 'Accueil',
+    videos: 'Vidéos',
+    blog: 'Blog',
+    projects: 'Projets',
+    announce: 'Annonces',
+    stats: 'Stats',
+    contact: 'Contact',
+    add_video: 'Ajouter une Vidéo',
+    title: 'Titre',
+    description: 'Description (SEO)',
+    youtube_url: 'URL YouTube',
+    thumbnail_url: 'URL Miniature',
+    category: 'Catégorie',
+    save: 'Sauvegarder',
+    add_photo: 'Ajouter une Photo',
+    alt_text: 'Titre / Alt Text (SEO)',
+    image_url: 'URL de l\'image',
+    cinema: 'Cinéma',
+    portrait: 'Portrait',
+    other: 'Autre',
+    new_article: 'Nouvel Article',
+    content: 'Contenu',
+    biography: 'Biographie',
+    vision: 'Vision',
+    technology: 'Technologie',
+    add_project: 'Ajouter un Projet',
+    project_name: 'Nom du Projet',
+    price: 'Prix',
+    link_url: 'Lien / URL',
+    cinema_production: 'Production Cinéma',
+    tech_app: 'Tech / App',
+    service: 'Service',
+    status: 'Statut',
+    available: 'Disponible',
+    sold: 'Vendu',
+    coming: 'Bientôt',
+    new_announce: 'Nouvelle Annonce',
+    details: 'Détails',
+    date: 'Date',
+    type: 'Type',
+    event: 'Événement',
+    release: 'Sortie',
+    collaboration: 'Collaboration',
+    news: 'Actualité',
+    confirm_delete: 'Confirmer la suppression',
+    delete_warning: 'Cette action est irréversible.',
+    cancel: 'Annuler',
+    delete: 'Supprimer'
+  },
+  en: {
+    hero_badge: 'VISIONARY • CREATOR • ENTREPRENEUR',
+    cta_videos: 'Watch my videos',
+    cta_contact: 'Contact me',
+    my_domains: 'My Domains',
+    explore_universes: 'Explore each universe',
+    cinema_scifi: 'Sci-Fi Cinema',
+    cinema_desc: 'Virtual production, visual effects and futuristic worlds',
+    music: 'Music',
+    music_desc: 'Compositions, clips and sound productions',
+    entrepreneurship: 'Entrepreneurship',
+    business_desc: 'Projects, visions and business opportunities',
+    gallery: 'Gallery',
+    gallery_desc: 'Visual portfolio and artistic creations',
+    stat_videos: 'Videos',
+    stat_photos: 'Photos',
+    stat_projects: 'Projects',
+    stat_articles: 'Articles',
+    recent_content: 'Recent Content',
+    add_content: 'Add content through Videos, Gallery, Blog or Projects sections',
+    about: 'About',
+    discover_me: 'Discover who I am and my vision',
+    who_am_i: 'Who am I?',
+    my_vision: 'My Vision',
+    my_specialties: 'My Specialties',
+    expertise: 'Areas of Expertise',
+    videos_youtube: 'YouTube Videos',
+    video_portfolio: 'My video portfolio',
+    all_categories: 'All categories',
+    business: 'Business',
+    vlog: 'Vlog',
+    add: 'Add',
+    no_videos: 'No videos yet. Click "Add" to get started.',
+    gallery_photos: 'Photo Gallery',
+    visual_portfolio: 'Visual portfolio optimized for SEO',
+    add_photo: 'Add Photo',
+    no_photos: 'No photos yet. Click "Add Photo" to get started.',
+    blog_profile: 'Blog & Profile',
+    articles_bio: 'Articles, biography and vision',
+    new_article: 'New Article',
+    bio_subtitle: 'Virtual Producer • Entrepreneur • Musician',
+    bio_default: 'Passionate about virtual sci-fi cinema production, digital entrepreneurship and music composition. Add your full biography through the edit panel.',
+    articles: 'Articles',
+    no_articles: 'No articles yet. Click "New Article" to share your vision.',
+    projects_sell: 'Projects for Sale',
+    creations_available: 'My creations and available services',
+    add_project: 'Add Project',
+    no_projects: 'No projects for sale yet. Click "Add Project" to showcase your creations.',
+    announcements: 'Announcements & Events',
+    upcoming_events: 'Upcoming events and news',
+    new_announce: 'New Announcement',
+    no_announces: 'No announcements yet. Click "New Announcement" to share your upcoming events.',
+    statistics: 'Statistics',
+    stats_overview: 'Overview of your content and performance',
+    content_breakdown: 'Content Breakdown',
+    recent_activity: 'Recent Activity',
+    activity_default: 'Actions on your site will appear here.',
+    contact_me: 'Contact',
+    send_message: 'Send me a message',
+    fullname: 'Full name',
+    email: 'Email',
+    subject: 'Subject',
+    subject_cinema: 'Cinema Collaboration',
+    subject_music: 'Music Project',
+    subject_buy: 'Project Purchase',
+    subject_business: 'Business',
+    subject_other: 'Other',
+    message: 'Message',
+    send: 'Send',
+    social_networks: 'Social Networks',
+    configure_panel: 'Configure via edit panel',
+    direct_email: 'Direct Email',
+    ambient_sound: 'Ambient Sound',
+    scifi_sound: 'Sci-Fi ambient sound',
+    footer_subtitle: 'Virtual Cinema Production • Entrepreneurship • Music',
+    home: 'Home',
+    videos: 'Videos',
+    blog: 'Blog',
+    projects: 'Projects',
+    announce: 'Announcements',
+    stats: 'Stats',
+    contact: 'Contact',
+    add_video: 'Add a Video',
+    title: 'Title',
+    description: 'Description (SEO)',
+    youtube_url: 'YouTube URL',
+    thumbnail_url: 'Thumbnail URL',
+    category: 'Category',
+    save: 'Save',
+    add_photo: 'Add a Photo',
+    alt_text: 'Title / Alt Text (SEO)',
+    image_url: 'Image URL',
+    cinema: 'Cinema',
+    portrait: 'Portrait',
+    other: 'Other',
+    new_article: 'New Article',
+    content: 'Content',
+    biography: 'Biography',
+    vision: 'Vision',
+    technology: 'Technology',
+    add_project: 'Add a Project',
+    project_name: 'Project Name',
+    price: 'Price',
+    link_url: 'Link / URL',
+    cinema_production: 'Cinema Production',
+    tech_app: 'Tech / App',
+    service: 'Service',
+    status: 'Status',
+    available: 'Available',
+    sold: 'Sold',
+    coming: 'Coming Soon',
+    new_announce: 'New Announcement',
+    details: 'Details',
+    date: 'Date',
+    type: 'Type',
+    event: 'Event',
+    release: 'Release',
+    collaboration: 'Collaboration',
+    news: 'News',
+    confirm_delete: 'Confirm deletion',
+    delete_warning: 'This action cannot be undone.',
+    cancel: 'Cancel',
+    delete: 'Delete'
+  },
+  es: {
+    hero_badge: 'VISIONARIO • CREADOR • EMPRENDEDOR',
+    cta_videos: 'Ver mis videos',
+    cta_contact: 'Contáctame',
+    my_domains: 'Mis Dominios',
+    explore_universes: 'Explora cada universo',
+    cinema_scifi: 'Cine Sci-Fi',
+    cinema_desc: 'Producción virtual, efectos visuales y mundos futuristas',
+    music: 'Música',
+    music_desc: 'Composiciones, videoclips y producciones sonoras',
+    entrepreneurship: 'Emprendimiento',
+    business_desc: 'Proyectos, visiones y oportunidades comerciales',
+    gallery: 'Galería',
+    gallery_desc: 'Portafolio visual y creaciones artísticas',
+    stat_videos: 'Videos',
+    stat_photos: 'Fotos',
+    stat_projects: 'Proyectos',
+    stat_articles: 'Artículos',
+    recent_content: 'Contenido Reciente',
+    add_content: 'Añade contenido a través de las secciones Videos, Galería, Blog o Proyectos',
+    about: 'Acerca de',
+    discover_me: 'Descubre quién soy y mi visión',
+    who_am_i: '¿Quién soy?',
+    my_vision: 'Mi Visión',
+    my_specialties: 'Mis Especialidades',
+    expertise: 'Áreas de Especialización',
+    videos_youtube: 'Videos de YouTube',
+    video_portfolio: 'Mi portafolio de videos',
+    all_categories: 'Todas las categorías',
+    business: 'Negocios',
+    vlog: 'Vlog',
+    add: 'Añadir',
+    no_videos: 'Sin videos aún. Haz clic en "Añadir" para empezar.',
+    gallery_photos: 'Galería de Fotos',
+    visual_portfolio: 'Portafolio visual optimizado para SEO',
+    add_photo: 'Añadir Foto',
+    no_photos: 'Sin fotos aún. Haz clic en "Añadir Foto" para empezar.',
+    blog_profile: 'Blog y Perfil',
+    articles_bio: 'Artículos, biografía y visión',
+    new_article: 'Nuevo Artículo',
+    bio_subtitle: 'Productor Virtual • Emprendedor • Músico',
+    bio_default: 'Apasionado por la producción de cine sci-fi virtual, emprendimiento digital y composición musical. Añade tu biografía completa a través del panel de edición.',
+    articles: 'Artículos',
+    no_articles: 'Sin artículos aún. Haz clic en "Nuevo Artículo" para compartir tu visión.',
+    projects_sell: 'Proyectos a la Venta',
+    creations_available: 'Mis creaciones y servicios disponibles',
+    add_project: 'Añadir Proyecto',
+    no_projects: 'Sin proyectos a la venta aún. Haz clic en "Añadir Proyecto" para mostrar tus creaciones.',
+    announcements: 'Anuncios y Eventos',
+    upcoming_events: 'Próximos eventos y noticias',
+    new_announce: 'Nuevo Anuncio',
+    no_announces: 'Sin anuncios aún. Haz clic en "Nuevo Anuncio" para compartir tus próximos eventos.',
+    statistics: 'Estadísticas',
+    stats_overview: 'Resumen de tu contenido y rendimiento',
+    content_breakdown: 'Desglose de Contenido',
+    recent_activity: 'Actividad Reciente',
+    activity_default: 'Las acciones en tu sitio aparecerán aquí.',
+    contact_me: 'Contáctame',
+    send_message: 'Envíame un mensaje',
+    fullname: 'Nombre completo',
+    email: 'Correo electrónico',
+    subject: 'Asunto',
+    subject_cinema: 'Colaboración Cinematográfica',
+    subject_music: 'Proyecto Musical',
+    subject_buy: 'Compra de Proyecto',
+    subject_business: 'Negocios',
+    subject_other: 'Otro',
+    message: 'Mensaje',
+    send: 'Enviar',
+    social_networks: 'Redes Sociales',
+    configure_panel: 'Configurar a través del panel de edición',
+    direct_email: 'Correo Directo',
+    ambient_sound: 'Sonido Ambiental',
+    scifi_sound: 'Sonido ambiental Sci-Fi',
+    footer_subtitle: 'Producción Cinematográfica Virtual • Emprendimiento • Música',
+    home: 'Inicio',
+    videos: 'Videos',
+    blog: 'Blog',
+    projects: 'Proyectos',
+    announce: 'Anuncios',
+    stats: 'Estadísticas',
+    contact: 'Contacto',
+    add_video: 'Añadir un Video',
+    title: 'Título',
+    description: 'Descripción (SEO)',
+    youtube_url: 'URL de YouTube',
+    thumbnail_url: 'URL de Miniatura',
+    category: 'Categoría',
+    save: 'Guardar',
+    add_photo: 'Añadir una Foto',
+    alt_text: 'Título / Texto Alt (SEO)',
+    image_url: 'URL de la Imagen',
+    cinema: 'Cine',
+    portrait: 'Retrato',
+    other: 'Otro',
+    new_article: 'Nuevo Artículo',
+    content: 'Contenido',
+    biography: 'Biografía',
+    vision: 'Visión',
+    technology: 'Tecnología',
+    add_project: 'Añadir un Proyecto',
+    project_name: 'Nombre del Proyecto',
+    price: 'Precio',
+    link_url: 'Enlace / URL',
+    cinema_production: 'Producción Cinematográfica',
+    tech_app: 'Tecnología / App',
+    service: 'Servicio',
+    status: 'Estado',
+    available: 'Disponible',
+    sold: 'Vendido',
+    coming: 'Próximamente',
+    new_announce: 'Nuevo Anuncio',
+    details: 'Detalles',
+    date: 'Fecha',
+    type: 'Tipo',
+    event: 'Evento',
+    release: 'Lanzamiento',
+    collaboration: 'Colaboración',
+    news: 'Noticia',
+    confirm_delete: 'Confirmar eliminación',
+    delete_warning: 'Esta acción no se puede deshacer.',
+    cancel: 'Cancelar',
+    delete: 'Eliminar'
+  },
+  de: {
+    hero_badge: 'VISIONÄR • KREATOR • UNTERNEHMER',
+    cta_videos: 'Meine Videos ansehen',
+    cta_contact: 'Mich kontaktieren',
+    my_domains: 'Meine Bereiche',
+    explore_universes: 'Jedes Universum erkunden',
+    cinema_scifi: 'Sci-Fi-Kino',
+    cinema_desc: 'Virtuelle Produktion, visuelle Effekte und futuristische Welten',
+    music: 'Musik',
+    music_desc: 'Kompositionen, Videoclips und Soundproduktionen',
+    entrepreneurship: 'Unternehmertum',
+    business_desc: 'Projekte, Visionen und Geschäftsmöglichkeiten',
+    gallery: 'Galerie',
+    gallery_desc: 'Visuelles Portfolio und künstlerische Kreationen',
+    stat_videos: 'Videos',
+    stat_photos: 'Fotos',
+    stat_projects: 'Projekte',
+    stat_articles: 'Artikel',
+    recent_content: 'Aktuelle Inhalte',
+    add_content: 'Fügen Sie Inhalte über die Abschnitte Videos, Galerie, Blog oder Projekte hinzu',
+    about: 'Über mich',
+    discover_me: 'Entdecke wer ich bin und meine Vision',
+    who_am_i: 'Wer bin ich?',
+    my_vision: 'Meine Vision',
+    my_specialties: 'Meine Spezialitäten',
+    expertise: 'Fachgebiete',
+    videos_youtube: 'YouTube-Videos',
+    video_portfolio: 'Mein Video-Portfolio',
+    all_categories: 'Alle Kategorien',
+    business: 'Geschäft',
+    vlog: 'Vlog',
+    add: 'Hinzufügen',
+    no_videos: 'Noch keine Videos. Klicke auf "Hinzufügen", um zu beginnen.',
+    gallery_photos: 'Foto-Galerie',
+    visual_portfolio: 'Visuelles Portfolio optimiert für SEO',
+    add_photo: 'Foto hinzufügen',
+    no_photos: 'Noch keine Fotos. Klicke auf "Foto hinzufügen", um zu beginnen.',
+    blog_profile: 'Blog und Profil',
+    articles_bio: 'Artikel, Biographie und Vision',
+    new_article: 'Neuer Artikel',
+    bio_subtitle: 'Virtueller Produzent • Unternehmer • Musiker',
+    bio_default: 'Leidenschaftlich für virtuelle Sci-Fi-Filmproduktion, digitales Unternehmertum und Musikkomposition. Füge deine vollständige Biographie über das Bearbeitungsfenster hinzu.',
+    articles: 'Artikel',
+    no_articles: 'Noch keine Artikel. Klicke auf "Neuer Artikel", um deine Vision zu teilen.',
+    projects_sell: 'Projekte zum Verkauf',
+    creations_available: 'Meine Kreationen und verfügbaren Dienstleistungen',
+    add_project: 'Projekt hinzufügen',
+    no_projects: 'Noch keine Projekte zum Verkauf. Klicke auf "Projekt hinzufügen", um deine Kreationen zu zeigen.',
+    announcements: 'Ankündigungen und Veranstaltungen',
+    upcoming_events: 'Kommende Veranstaltungen und Nachrichten',
+    new_announce: 'Neue Ankündigung',
+    no_announces: 'Noch keine Ankündigungen. Klicke auf "Neue Ankündigung", um deine kommenden Veranstaltungen zu teilen.',
+    statistics: 'Statistiken',
+    stats_overview: 'Übersicht über deinen Inhalt und deine Leistung',
+    content_breakdown: 'Inhaltsaufschlüsselung',
+    recent_activity: 'Aktuelle Aktivität',
+    activity_default: 'Aktionen auf deiner Website werden hier angezeigt.',
+    contact_me: 'Kontakt',
+    send_message: 'Sende mir eine Nachricht',
+    fullname: 'Vollständiger Name',
+    email: 'E-Mail',
+    subject: 'Betreff',
+    subject_cinema: 'Filmische Zusammenarbeit',
+    subject_music: 'Musikprojekt',
+    subject_buy: 'Projektkauf',
+    subject_business: 'Geschäft',
+    subject_other: 'Sonstiges',
+    message: 'Nachricht',
+    send: 'Senden',
+    social_networks: 'Soziale Netzwerke',
+    configure_panel: 'Über das Bearbeitungsfenster konfigurieren',
+    direct_email: 'Direkte E-Mail',
+    ambient_sound: 'Umgebungsgeräusche',
+    scifi_sound: 'Sci-Fi Umgebungsgeräusche',
+    footer_subtitle: 'Virtuelle Filmproduktion • Unternehmertum • Musik',
+    home: 'Startseite',
+    videos: 'Videos',
+    blog: 'Blog',
+    projects: 'Projekte',
+    announce: 'Ankündigungen',
+    stats: 'Statistiken',
+    contact: 'Kontakt',
+    add_video: 'Video hinzufügen',
+    title: 'Titel',
+    description: 'Beschreibung (SEO)',
+    youtube_url: 'YouTube-URL',
+    thumbnail_url: 'Miniatur-URL',
+    category: 'Kategorie',
+    save: 'Speichern',
+    add_photo: 'Foto hinzufügen',
+    alt_text: 'Titel / Alt-Text (SEO)',
+    image_url: 'Bild-URL',
+    cinema: 'Kino',
+    portrait: 'Porträt',
+    other: 'Sonstiges',
+    new_article: 'Neuer Artikel',
+    content: 'Inhalt',
+    biography: 'Biographie',
+    vision: 'Vision',
+    technology: 'Technologie',
+    add_project: 'Projekt hinzufügen',
+    project_name: 'Projektname',
+    price: 'Preis',
+    link_url: 'Link / URL',
+    cinema_production: 'Filmproduktion',
+    tech_app: 'Technologie / App',
+    service: 'Dienstleistung',
+    status: 'Status',
+    available: 'Verfügbar',
+    sold: 'Verkauft',
+    coming: 'Demnächst',
+    new_announce: 'Neue Ankündigung',
+    details: 'Details',
+    date: 'Datum',
+    type: 'Typ',
+    event: 'Veranstaltung',
+    release: 'Veröffentlichung',
+    collaboration: 'Zusammenarbeit',
+    news: 'Nachricht',
+    confirm_delete: 'Löschen bestätigen',
+    delete_warning: 'Diese Aktion kann nicht rückgängig gemacht werden.',
+    cancel: 'Abbrechen',
+    delete: 'Löschen'
+  }
+};
+
+let currentLang = 'fr';
+let enabledLanguages = ['fr', 'en', 'es', 'de'];
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('preferredLanguage', lang);
+  
+  // Update all i18n elements
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (i18n[lang] && i18n[lang][key]) {
+      el.textContent = i18n[lang][key];
+    }
+  });
+  
+  document.querySelectorAll('[data-i18n-nav]').forEach(el => {
+    const key = el.getAttribute('data-i18n-nav');
+    if (i18n[lang] && i18n[lang][key]) {
+      el.textContent = i18n[lang][key];
+    }
+  });
+  
+  // Update HTML lang attribute
+  document.documentElement.lang = lang;
+  
+  // Update language selector buttons
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  
+  showToast(`Langue: ${lang.toUpperCase()}`);
+}
+
+function renderLanguageSelectors() {
+  const headerSelector = document.getElementById('lang-selector-header');
+  const mobileSelector = document.getElementById('lang-selector-mobile');
+  
+  const langNames = { fr: 'FR', en: 'EN', es: 'ES', de: 'DE' };
+  const html = enabledLanguages.map(lang => 
+    `<button class="lang-btn ${currentLang === lang ? 'active' : ''}" data-lang="${lang}" onclick="setLanguage('${lang}')">${langNames[lang]}</button>`
+  ).join('');
+  
+  headerSelector.innerHTML = html;
+  mobileSelector.innerHTML = html;
+}
+
+// ===================== UTILITY FUNCTIONS =====================
+function convertLinksToClickable(text) {
+  const urlRegex = /(https?:\/\/[^\s]+)/g;
+  return text.replace(urlRegex, (url) => {
+    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#f5c518] hover:underline">${url}</a>`;
+  });
+}
+
+// ===================== STATE =====================
+let allData = [];
+let currentPage = 'home';
+let deleteTarget = null;
+let audioCtx = null;
+let audioOsc = null;
+let audioGain = null;
+let audioPlaying = false;
+let activityLog = [];
+
+const defaultConfig = {
+  site_title: 'JULIO MH15',
+  full_name: 'Julio M. MESSOHOUNSOUNOU',
+  tagline: 'Cinéma de science-fiction • Entrepreneuriat • Musique • Vision du futur',
+  bio_text: 'Innovateur passionné par la production virtuelle de cinéma science-fiction, l\'entrepreneuriat digital et la composition musicale. Créateur de contenu de haut niveau, je transforme les visions en réalités numériques immersives.',
+  about_vision: 'Créer des univers numériques immersifs qui repoussent les limites de la technologie, de l\'art et de la créativité. Entrepreneur du futur numérique.',
+  specialty_1: 'Production Virtuelle Cinéma',
+  specialty_2: 'Cinéma Science-Fiction',
+  specialty_3: 'Entrepreneuriat Digital',
+  specialty_4: 'Composition Musicale',
+  email_address: '',
+  phone_number: '',
+  youtube_url: '',
+  instagram_url: '',
+  twitter_url: '',
+  tiktok_url: '',
+  linkedin_url: '',
+  website_url: '',
+  enabled_languages: 'fr,en,es,de',
+  background_color: '#0a0a0a',
+  surface_color: '#141414',
+  text_color: '#e5e5e5',
+  accent_color: '#f5c518',
+  secondary_action_color: '#333333',
+  font_family: 'Syne',
+  font_size: 16
+};
+
+// ===================== NAVIGATION =====================
+function navigateTo(page) {
+  document.querySelectorAll('[id^="page-"]').forEach(s => { s.classList.remove('section-visible'); s.classList.add('section-hidden'); });
+  const target = document.getElementById('page-' + page);
+  if (target) { target.classList.remove('section-hidden'); target.classList.add('section-visible'); }
+  currentPage = page;
+  // Update nav active state
+  document.querySelectorAll('#desktop-nav .nav-item, #mobile-nav .nav-item').forEach(a => {
+    a.classList.toggle('active', a.dataset.page === page);
+    if (a.dataset.page === page) a.style.color = '#f5c518'; else a.style.color = '';
+  });
+  document.getElementById('mobile-nav').style.display = 'none';
+  document.getElementById('main-content').scrollTop = 0;
+  logActivity('Navigation vers ' + page);
+}
+
+document.querySelectorAll('[data-page]').forEach(a => {
+  a.addEventListener('click', (e) => { e.preventDefault(); navigateTo(a.dataset.page); });
+});
+
+document.getElementById('menu-toggle').addEventListener('click', () => { document.getElementById('mobile-nav').style.display = 'flex'; });
+document.getElementById('menu-close').addEventListener('click', () => { document.getElementById('mobile-nav').style.display = 'none'; });
+
+// ===================== MODALS =====================
+function openModal(id) { const m = document.getElementById('modal-' + id); if (m) m.classList.add('open'); }
+function closeModal(id) { const m = document.getElementById('modal-' + id); if (m) m.classList.remove('open'); }
+
+// ===================== TOAST =====================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ===================== ACTIVITY LOG =====================
+function logActivity(msg) {
+  const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  activityLog.unshift({ time: now, msg });
+  if (activityLog.length > 20) activityLog.pop();
+  renderActivityLog();
+}
+
+function renderActivityLog() {
+  const el = document.getElementById('activity-log');
+  if (!el) return;
+  if (activityLog.length === 0) { el.innerHTML = '<p>' + (i18n[currentLang].activity_default || 'Les actions sur votre site apparaîtront ici.') + '</p>'; return; }
+  el.innerHTML = activityLog.slice(0, 10).map(a => `<div class="flex items-center gap-3 py-1 border-b border-[#1a1a1a]"><span class="text-[#f5c518] text-xs">${a.time}</span><span>${a.msg}</span></div>`).join('');
+}
+
+// ===================== AUDIO =====================
+function toggleAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    audioGain = audioCtx.createGain();
+    audioGain.gain.value = 0.03;
+    audioGain.connect(audioCtx.destination);
+    // Create ambient sci-fi drone
+    audioOsc = audioCtx.createOscillator();
+    audioOsc.type = 'sine';
+    audioOsc.frequency.value = 80;
+    const lfo = audioCtx.createOscillator();
+    lfo.frequency.value = 0.3;
+    const lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 15;
+    lfo.connect(lfoGain);
+    lfoGain.connect(audioOsc.frequency);
+    lfo.start();
+    audioOsc.connect(audioGain);
+    audioOsc.start();
+    audioPlaying = true;
+  } else if (audioPlaying) {
+    audioGain.gain.value = 0;
+    audioPlaying = false;
+  } else {
+    audioGain.gain.value = document.getElementById('audio-volume').value / 3000;
+    audioPlaying = true;
+  }
+  document.getElementById('audio-icon').setAttribute('data-lucide', audioPlaying ? 'volume-2' : 'volume-x');
+  lucide.createIcons();
+}
+
+function setAudioVolume(v) {
+  if (audioGain && audioPlaying) audioGain.gain.value = v / 3000;
+}
+
+// ===================== RENDER FUNCTIONS =====================
+function getByType(type) { return allData.filter(d => d.type === type); }
+
+function renderVideos(filter) {
+  const videos = getByType('video');
+  const filtered = filter && filter !== 'all' ? videos.filter(v => v.category === filter) : videos;
+  const grid = document.getElementById('videos-grid');
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-2 lg:col-span-3"><i data-lucide="video" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i><span>' + (i18n[currentLang].no_videos || 'Aucune vidéo encore.') + '</span></div>';
+    lucide.createIcons(); return;
+  }
+  grid.innerHTML = filtered.map(v => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl overflow-hidden group" data-id="${v.__backendId}">
+      <div class="relative aspect-video bg-[#1a1a1a] overflow-hidden">
+        ${v.thumbnail ? `<img src="${v.thumbnail}" alt="${v.title}" loading="lazy" class="w-full h-full object-cover" onerror="this.style.background='linear-gradient(135deg,#1a1a1a,#222)';this.alt='Image non disponible';this.src='';">` : '<div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-[#1a1a1a] to-[#222]"><i data-lucide="film" style="width:40px;height:40px;color:#333"></i></div>'}
+        <a href="${v.url || '#'}" target="_blank" rel="noopener noreferrer" class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+          <div class="w-14 h-14 bg-[#f5c518] rounded-full flex items-center justify-center"><i data-lucide="play" style="width:24px;height:24px;color:#000"></i></div>
+        </a>
+      </div>
+      <div class="p-4">
+        <span class="text-[10px] font-mono text-[#f5c518] uppercase tracking-wider">${v.category || ''}</span>
+        <h4 class="font-bold mt-1 text-sm">${v.title}</h4>
+        <p class="text-[#666] text-xs font-mono mt-1 line-clamp-2">${v.description || ''}</p>
+        <div class="flex justify-end mt-3">
+          <button class="text-[#555] hover:text-red-500 transition-colors" onclick="confirmDelete('${v.__backendId}')"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderGallery() {
+  const photos = getByType('photo');
+  const grid = document.getElementById('gallery-grid');
+  if (photos.length === 0) {
+    grid.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-2 md:col-span-3 lg:col-span-4"><i data-lucide="image" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i><span>' + (i18n[currentLang].no_photos || 'Aucune photo.') + '</span></div>';
+    lucide.createIcons(); return;
+  }
+  grid.innerHTML = photos.map(p => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl overflow-hidden group relative" data-id="${p.__backendId}">
+      <div class="aspect-square bg-[#1a1a1a] overflow-hidden">
+        ${p.url ? `<img src="${p.url}" alt="${p.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.style.background='linear-gradient(135deg,#1a1a1a,#222)';this.alt='Image non disponible';this.src='';">` : '<div class="w-full h-full flex items-center justify-center"><i data-lucide="image" style="width:32px;height:32px;color:#333"></i></div>'}
+      </div>
+      <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <p class="text-xs font-bold">${p.title}</p>
+        <p class="text-[10px] text-[#888] font-mono">${p.category || ''}</p>
+        <button class="absolute top-2 right-2 text-[#555] hover:text-red-500" onclick="confirmDelete('${p.__backendId}')"><i data-lucide="trash-2" style="width:12px;height:12px"></i></button>
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderBlog() {
+  const articles = getByType('article');
+  const grid = document.getElementById('blog-grid');
+  if (articles.length === 0) {
+    grid.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm"><i data-lucide="file-text" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i><span>' + (i18n[currentLang].no_articles || 'Aucun article.') + '</span></div>';
+    lucide.createIcons(); return;
+  }
+  grid.innerHTML = articles.map(a => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5" data-id="${a.__backendId}">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[10px] font-mono text-[#f5c518] uppercase tracking-wider bg-[#f5c518]/10 px-2 py-1 rounded">${a.category || ''}</span>
+        <div class="flex items-center gap-2">
+          <span class="text-[#555] font-mono text-xs">${a.date ? new Date(a.date).toLocaleDateString('fr-FR') : ''}</span>
+          <button class="text-[#555] hover:text-red-500" onclick="confirmDelete('${a.__backendId}')"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+        </div>
+      </div>
+      <h4 class="font-bold text-lg mb-2">${a.title}</h4>
+      <div class="text-[#888] font-mono text-sm leading-relaxed article-content">${convertLinksToClickable(a.description || '')}</div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderProjects() {
+  const projects = getByType('project');
+  const grid = document.getElementById('projects-grid');
+  if (projects.length === 0) {
+    grid.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-12 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-2 lg:col-span-3"><i data-lucide="package" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i><span>' + (i18n[currentLang].no_projects || 'Aucun projet.') + '</span></div>';
+    lucide.createIcons(); return;
+  }
+  const statusColors = { available: '#22c55e', sold: '#ef4444', coming: '#f5c518' };
+  const statusLabels = { available: i18n[currentLang].available || 'Disponible', sold: i18n[currentLang].sold || 'Vendu', coming: i18n[currentLang].coming || 'Bientôt' };
+  grid.innerHTML = projects.map(p => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5" data-id="${p.__backendId}">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-[10px] font-mono uppercase tracking-wider px-2 py-1 rounded" style="background:${statusColors[p.status] || '#333'}20;color:${statusColors[p.status] || '#888'}">${statusLabels[p.status] || p.status}</span>
+        <button class="text-[#555] hover:text-red-500" onclick="confirmDelete('${p.__backendId}')"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+      </div>
+      <h4 class="font-bold text-lg mb-1">${p.title}</h4>
+      <p class="text-[#888] font-mono text-xs mb-3">${p.description || ''}</p>
+      ${p.price ? `<div class="text-[#f5c518] font-bold text-lg">${p.price}</div>` : ''}
+      ${p.url ? `<a href="${p.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[#f5c518] font-mono text-xs mt-2 hover:underline"><i data-lucide="external-link" style="width:12px;height:12px"></i> Voir</a>` : ''}
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderAnnouncements() {
+  const items = getByType('announce');
+  const list = document.getElementById('announce-list');
+  if (items.length === 0) {
+    list.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm"><i data-lucide="megaphone" style="width:48px;height:48px;color:#333;margin:0 auto 12px;display:block"></i><span>' + (i18n[currentLang].no_announces || 'Aucune annonce.') + '</span></div>';
+    lucide.createIcons(); return;
+  }
+  const catIcons = { event: 'calendar', release: 'rocket', collab: 'users', news: 'newspaper' };
+  list.innerHTML = items.map(a => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-5 flex gap-4" data-id="${a.__backendId}">
+      <div class="w-12 h-12 bg-[#f5c518]/10 rounded-lg flex items-center justify-center flex-shrink-0">
+        <i data-lucide="${catIcons[a.category] || 'bell'}" style="width:24px;height:24px;color:#f5c518"></i>
+      </div>
+      <div class="flex-1">
+        <div class="flex items-center justify-between">
+          <h4 class="font-bold">${a.title}</h4>
+          <button class="text-[#555] hover:text-red-500" onclick="confirmDelete('${a.__backendId}')"><i data-lucide="trash-2" style="width:14px;height:14px"></i></button>
+        </div>
+        <p class="text-[#888] font-mono text-sm mt-1">${a.description || ''}</p>
+        ${a.date ? `<span class="text-[#f5c518] font-mono text-xs mt-2 inline-block">📅 ${new Date(a.date).toLocaleDateString('fr-FR')}</span>` : ''}
+      </div>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderStats() {
+  const videos = getByType('video').length;
+  const photos = getByType('photo').length;
+  const projects = getByType('project').length;
+  const articles = getByType('article').length;
+  const announces = getByType('announce').length;
+  const total = allData.length;
+
+  document.getElementById('s-videos').textContent = videos;
+  document.getElementById('s-photos').textContent = photos;
+  document.getElementById('s-projects').textContent = projects;
+  document.getElementById('s-articles').textContent = articles;
+  document.getElementById('stat-videos-count').textContent = videos;
+  document.getElementById('stat-photos-count').textContent = photos;
+  document.getElementById('stat-projects-count').textContent = projects;
+  document.getElementById('stat-articles-count').textContent = articles;
+
+  const bars = document.getElementById('stats-bars');
+  const data = [
+    { label: i18n[currentLang].stat_videos || 'Vidéos', count: videos, color: '#f5c518' },
+    { label: i18n[currentLang].stat_photos || 'Photos', count: photos, color: '#3b82f6' },
+    { label: i18n[currentLang].stat_projects || 'Projets', count: projects, color: '#22c55e' },
+    { label: i18n[currentLang].stat_articles || 'Articles', count: articles, color: '#a855f7' },
+    { label: 'Annonces', count: announces, color: '#ef4444' }
+  ];
+  const max = Math.max(...data.map(d => d.count), 1);
+  bars.innerHTML = data.map(d => `
+    <div class="flex items-center gap-3">
+      <span class="w-20 text-xs font-mono text-[#888]">${d.label}</span>
+      <div class="flex-1 bg-[#1a1a1a] rounded-full h-4 overflow-hidden">
+        <div class="h-full rounded-full transition-all duration-700" style="width:${(d.count / max) * 100}%;background:${d.color}"></div>
+      </div>
+      <span class="w-8 text-xs font-mono text-right">${d.count}</span>
+    </div>
+  `).join('');
+}
+
+function renderRecent() {
+  const recent = [...allData].sort((a, b) => (b.date || '').localeCompare(a.date || '')).slice(0, 6);
+  const el = document.getElementById('recent-content');
+  if (recent.length === 0) {
+    el.innerHTML = '<div class="bg-[#141414] border border-[#1e1e1e] rounded-xl p-8 text-center text-[#555] font-mono text-sm col-span-1 md:col-span-3"><span>' + (i18n[currentLang].add_content || 'Ajoutez du contenu') + '</span></div>';
+    return;
+  }
+  const icons = { video: 'film', photo: 'image', article: 'file-text', project: 'package', announce: 'megaphone' };
+  el.innerHTML = recent.map(item => `
+    <div class="card-hover bg-[#141414] border border-[#1e1e1e] rounded-xl p-4">
+      <div class="flex items-center gap-2 mb-2">
+        <i data-lucide="${icons[item.type] || 'circle'}" style="width:14px;height:14px;color:#f5c518"></i>
+        <span class="text-[10px] font-mono text-[#f5c518] uppercase">${item.type}</span>
+      </div>
+      <h4 class="font-bold text-sm">${item.title}</h4>
+      <p class="text-[#666] text-xs font-mono mt-1 line-clamp-2">${item.description || ''}</p>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
+
+function renderAll() {
+  renderVideos(document.getElementById('video-filter')?.value);
+  renderGallery();
+  renderBlog();
+  renderProjects();
+  renderAnnouncements();
+  renderStats();
+  renderRecent();
+}
+
+// ===================== DELETE =====================
+function confirmDelete(id) {
+  deleteTarget = id;
+  openModal('confirm-delete');
+}
+
+document.getElementById('btn-confirm-delete').addEventListener('click', async () => {
+  if (!deleteTarget) return;
+  const record = allData.find(d => d.__backendId === deleteTarget);
+  if (!record) return;
+  const btn = document.getElementById('btn-confirm-delete');
+  btn.textContent = '...';
+  btn.disabled = true;
+  const result = await window.dataSdk.delete(record);
+  btn.textContent = i18n[currentLang].delete || 'Supprimer';
+  btn.disabled = false;
+  closeModal('confirm-delete');
+  if (result.isOk) {
+    showToast('✓');
+    logActivity('Suppression: ' + record.title);
+  } else {
+    showToast('Erreur');
+  }
+  deleteTarget = null;
+});
+
+// ===================== FORMS =====================
+document.getElementById('form-video').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = document.getElementById('btn-save-video');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'video', title: document.getElementById('v-title').value,
+    description: document.getElementById('v-desc').value, url: document.getElementById('v-url').value,
+    thumbnail: document.getElementById('v-thumb').value, category: document.getElementById('v-cat').value,
+    price: '', date: new Date().toISOString(), status: ''
+  });
+  btn.textContent = i18n[currentLang].save || 'Sauvegarder'; btn.disabled = false;
+  if (result.isOk) { closeModal('add-video'); e.target.reset(); showToast('✓'); logActivity('Vidéo ajoutée'); }
+  else showToast('Erreur');
+});
+
+document.getElementById('form-photo').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = document.getElementById('btn-save-photo');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'photo', title: document.getElementById('p-title').value,
+    description: document.getElementById('p-desc').value, url: document.getElementById('p-url').value,
+    thumbnail: '', category: document.getElementById('p-cat').value,
+    price: '', date: new Date().toISOString(), status: ''
+  });
+  btn.textContent = i18n[currentLang].save || 'Sauvegarder'; btn.disabled = false;
+  if (result.isOk) { closeModal('add-photo'); e.target.reset(); showToast('✓'); logActivity('Photo ajoutée'); }
+  else showToast('Erreur');
+});
+
+document.getElementById('form-article').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = document.getElementById('btn-save-article');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'article', title: document.getElementById('a-title').value,
+    description: document.getElementById('a-desc').value, url: '', thumbnail: '',
+    category: document.getElementById('a-cat').value, price: '', date: new Date().toISOString(), status: ''
+  });
+  btn.textContent = i18n[currentLang].save || 'Sauvegarder'; btn.disabled = false;
+  if (result.isOk) { closeModal('add-article'); e.target.reset(); showToast('✓'); logActivity('Article publié'); }
+  else showToast('Erreur');
+});
+
+document.getElementById('form-project').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = document.getElementById('btn-save-project');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'project', title: document.getElementById('pr-title').value,
+    description: document.getElementById('pr-desc').value, url: document.getElementById('pr-url').value || '',
+    thumbnail: '', category: document.getElementById('pr-cat').value,
+    price: document.getElementById('pr-price').value || '', date: new Date().toISOString(),
+    status: document.getElementById('pr-status').value
+  });
+  btn.textContent = i18n[currentLang].save || 'Sauvegarder'; btn.disabled = false;
+  if (result.isOk) { closeModal('add-project'); e.target.reset(); showToast('✓'); logActivity('Projet ajouté'); }
+  else showToast('Erreur');
+});
+
+document.getElementById('form-announce').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = document.getElementById('btn-save-announce');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'announce', title: document.getElementById('an-title').value,
+    description: document.getElementById('an-desc').value, url: '', thumbnail: '',
+    category: document.getElementById('an-cat').value, price: '',
+    date: document.getElementById('an-date').value || new Date().toISOString(), status: ''
+  });
+  btn.textContent = i18n[currentLang].save || 'Sauvegarder'; btn.disabled = false;
+  if (result.isOk) { closeModal('add-announce'); e.target.reset(); showToast('✓'); logActivity('Annonce publiée'); }
+  else showToast('Erreur');
+});
+
+// Contact form
+document.getElementById('contact-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  if (allData.length >= 999) { showToast('Limite atteinte'); return; }
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.textContent = '...'; btn.disabled = true;
+  const result = await window.dataSdk.create({
+    type: 'contact', title: document.getElementById('cf-name').value,
+    description: document.getElementById('cf-message').value,
+    url: document.getElementById('cf-email').value, thumbnail: '',
+    category: document.getElementById('cf-subject').value, price: '',
+    date: new Date().toISOString(), status: 'new'
+  });
+  btn.innerHTML = '<i data-lucide="send" style="width:16px;height:16px"></i> ' + (i18n[currentLang].send || 'Envoyer'); btn.disabled = false;
+  if (result.isOk) { e.target.reset(); showToast('✓'); logActivity('Message reçu'); }
+  else showToast('Erreur');
+  lucide.createIcons();
+});
+
+// Video filter
+document.getElementById('video-filter').addEventListener('change', (e) => renderVideos(e.target.value));
+
+// ===================== ELEMENT SDK =====================
+function applyConfig(config) {
+  const c = { ...defaultConfig, ...config };
+  const font = c.font_family || defaultConfig.font_family;
+  const size = c.font_size || defaultConfig.font_size;
+
+  document.getElementById('header-title').textContent = c.site_title;
+  document.getElementById('hero-tagline').textContent = c.tagline;
+  document.getElementById('bio-content').textContent = c.bio_text;
+  document.getElementById('bio-name').textContent = c.site_title;
+  document.getElementById('bio-avatar').textContent = (c.site_title || 'J')[0];
+  document.getElementById('footer-brand').textContent = '© 2025 ' + c.site_title + ' - All Rights Reserved';
+  
+  // Update marquee with custom message
+  const footerMsg = c.footer_message || `${c.site_title} • ${c.tagline}`;
+  document.getElementById('marquee-1').textContent = '🎬 ' + c.site_title;
+  document.getElementById('marquee-2').textContent = '🚀 ' + footerMsg;
+  document.getElementById('marquee-3').textContent = '🎵 ' + c.about_vision;
+  document.getElementById('marquee-4').textContent = '💼 ' + (c.specialty_3 || 'Créations');
+  document.getElementById('marquee-5').textContent = '🎨 ' + (c.specialty_1 || 'Productions');
+  document.getElementById('marquee-1-dup').textContent = '🎬 ' + c.site_title;
+  document.getElementById('marquee-2-dup').textContent = '🚀 ' + footerMsg;
+  document.getElementById('marquee-3-dup').textContent = '🎵 ' + c.about_vision;
+  document.getElementById('marquee-4-dup').textContent = '💼 ' + (c.specialty_3 || 'Créations');
+  document.getElementById('marquee-5-dup').textContent = '🎨 ' + (c.specialty_1 || 'Productions');
+  
+  // About Section
+  document.getElementById('profile-name').textContent = c.full_name || c.site_title;
+  document.getElementById('profile-avatar').textContent = (c.full_name || c.site_title || 'J')[0];
+  document.getElementById('profile-bio').textContent = c.bio_text;
+  document.getElementById('profile-vision').textContent = c.about_vision;
+  document.getElementById('spec-1').textContent = c.specialty_1 || 'Production Virtuelle Cinéma';
+  document.getElementById('spec-2').textContent = c.specialty_2 || 'Cinéma Science-Fiction';
+  document.getElementById('spec-3').textContent = c.specialty_3 || 'Entrepreneuriat Digital';
+  document.getElementById('spec-4').textContent = c.specialty_4 || 'Composition Musicale';
+  
+  document.getElementById('display-email').textContent = c.email_address || (i18n[currentLang].configure_panel || 'Configurer');
+
+  // Social links
+  const socials = [
+    { id: 'youtube', key: 'youtube_url' }, { id: 'instagram', key: 'instagram_url' },
+    { id: 'twitter', key: 'twitter_url' }, { id: 'tiktok', key: 'tiktok_url' },
+    { id: 'linkedin', key: 'linkedin_url' }
+  ];
+  socials.forEach(s => {
+    const link = document.getElementById('link-' + s.id);
+    const urlDisplay = document.getElementById('social-' + s.id + '-url');
+    if (c[s.key]) { link.href = c[s.key]; urlDisplay.textContent = c[s.key]; }
+    else { link.href = '#'; urlDisplay.textContent = i18n[currentLang].configure_panel || 'Configurer'; }
+  });
+
+  // Update languages
+  if (c.enabled_languages) {
+    enabledLanguages = c.enabled_languages.split(',').map(l => l.trim()).filter(l => i18n[l]);
+    renderLanguageSelectors();
+  }
+
+  // Colors
+  document.body.style.backgroundColor = c.background_color;
+  document.querySelectorAll('.bg-\\[\\#0a0a0a\\]').forEach(el => el.style.backgroundColor = c.background_color);
+  document.querySelectorAll('.bg-\\[\\#141414\\]').forEach(el => el.style.backgroundColor = c.surface_color);
+  document.body.style.color = c.text_color;
+
+  // Font
+  document.body.style.fontFamily = `${font}, Syne, sans-serif`;
+  document.getElementById('hero-title').style.fontSize = `${size * 2.5}px`;
+  document.getElementById('hero-tagline').style.fontSize = `${size}px`;
+}
+
+window.elementSdk.init({
+  defaultConfig,
+  onConfigChange: async (config) => applyConfig(config),
+  mapToCapabilities: (config) => ({
+    recolorables: [
+      { get: () => config.background_color || defaultConfig.background_color, set: (v) => { config.background_color = v; window.elementSdk.setConfig({ background_color: v }); } },
+      { get: () => config.surface_color || defaultConfig.surface_color, set: (v) => { config.surface_color = v; window.elementSdk.setConfig({ surface_color: v }); } },
+      { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+      { get: () => config.accent_color || defaultConfig.accent_color, set: (v) => { config.accent_color = v; window.elementSdk.setConfig({ accent_color: v }); } },
+      { get: () => config.secondary_action_color || defaultConfig.secondary_action_color, set: (v) => { config.secondary_action_color = v; window.elementSdk.setConfig({ secondary_action_color: v }); } }
+    ],
+    borderables: [],
+    fontEditable: {
+      get: () => config.font_family || defaultConfig.font_family,
+      set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+    },
+    fontSizeable: {
+      get: () => config.font_size || defaultConfig.font_size,
+      set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+    }
+  }),
+  mapToEditPanelValues: (config) => new Map([
+    ['enabled_languages', config.enabled_languages || defaultConfig.enabled_languages],
+    ['site_title', config.site_title || defaultConfig.site_title],
+    ['full_name', config.full_name || defaultConfig.full_name],
+    ['tagline', config.tagline || defaultConfig.tagline],
+    ['bio_text', config.bio_text || defaultConfig.bio_text],
+    ['about_vision', config.about_vision || defaultConfig.about_vision],
+    ['footer_message', config.footer_message || defaultConfig.footer_message],
+    ['specialty_1', config.specialty_1 || defaultConfig.specialty_1],
+    ['specialty_2', config.specialty_2 || defaultConfig.specialty_2],
+    ['specialty_3', config.specialty_3 || defaultConfig.specialty_3],
+    ['specialty_4', config.specialty_4 || defaultConfig.specialty_4],
+    ['email_address', config.email_address || defaultConfig.email_address],
+    ['phone_number', config.phone_number || defaultConfig.phone_number],
+    ['youtube_url', config.youtube_url || defaultConfig.youtube_url],
+    ['instagram_url', config.instagram_url || defaultConfig.instagram_url],
+    ['twitter_url', config.twitter_url || defaultConfig.twitter_url],
+    ['tiktok_url', config.tiktok_url || defaultConfig.tiktok_url],
+    ['linkedin_url', config.linkedin_url || defaultConfig.linkedin_url],
+    ['website_url', config.website_url || defaultConfig.website_url]
+  ])
+});
+
+// ===================== DATA SDK =====================
+(async () => {
+  const result = await window.dataSdk.init({
+    onDataChanged(data) {
+      allData = data;
+      renderAll();
+    }
+  });
+  if (!result.isOk) {
+    showToast('Erreur de connexion');
+  }
+})();
+
+// Init languages
+const savedLang = localStorage.getItem('preferredLanguage') || 'fr';
+if (enabledLanguages.includes(savedLang)) {
+  currentLang = savedLang;
+}
+renderLanguageSelectors();
+
+// Init icons
+lucide.createIcons();
+</script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9e7ff5bf760cbe9c',t:'MTc3NTQ2OTc3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
