@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NJARIGU - La Révolution Éducative Africaine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            width: 95%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .menu-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-align: center;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .menu-card h3 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .menu-card p {
+            opacity: 0.9;
+            font-size: 0.95em;
+        }
+
+        .icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .status-bar {
+            background: #f5f5f5;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 2px solid #e0e0e0;
+        }
+
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+
+        .stats {
+            display: flex;
+            gap: 20px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 0.8em;
+            color: #666;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .section {
+            margin: 20px 0;
+        }
+
+        .lesson-list, .challenge-list {
+            list-style: none;
+        }
+
+        .lesson-item, .challenge-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .lesson-item:hover, .challenge-item:hover {
+            background: #f0f0f0;
+        }
+
+        .lesson-title, .challenge-title {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .lesson-meta, .challenge-meta {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        #app-screen {
+            display: none;
+        }
+
+        #welcome-screen {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Écran de bienvenue -->
+        <div id="welcome-screen">
+            <div class="header">
+                <h1>🌍 NJARIGU</h1>
+                <p>La Révolution Éducative Africaine</p>
+            </div>
+            
+            <div class="content">
+                <div class="loading" id="loading">
+                    <div class="spinner"></div>
+                    <h3>Chargement de NJARIGU...</h3>
+                    <p>Préparation de votre expérience éducative</p>
+                </div>
+                
+                <div id="main-menu" class="hidden">
+                    <h2 style="text-align: center; margin-bottom: 20px;">Que voulez-vous faire aujourd'hui?</h2>
+                    
+                    <div class="menu-grid">
+                        <div class="menu-card" onclick="showSection('lessons')">
+                            <span class="icon">📚</span>
+                            <h3>Apprendre</h3>
+                            <p>Découvre des leçons interactives</p>
+                        </div>
+                        
+                        <div class="menu-card" onclick="showSection('challenges')">
+                            <span class="icon">⚔️</span>
+                            <h3>Défis</h3>
+                            <p>Affronte tes amis ou l'IA</p>
+                        </div>
+                        
+                        <div class="menu-card" onclick="showSection('progress')">
+                            <span class="icon">📊</span>
+                            <h3>Progression</h3>
+                            <p>Suis ton évolution</p>
+                        </div>
+                        
+                        <div class="menu-card" onclick="showSection('create')">
+                            <span class="icon">🎨</span>
+                            <h3>Créer</h3>
+                            <p>Exprime ta créativité</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="lessons-section" class="hidden section">
+                    <h2>📚 Leçons Disponibles</h2>
+                    <ul class="lesson-list" id="lesson-list">
+                        <!-- Les leçons seront chargées ici -->
+                    </ul>
+                    <button class="btn btn-secondary" onclick="showMenu()">Retour au menu</button>
+                </div>
+                
+                <div id="challenges-section" class="hidden section">
+                    <h2>⚔️ Défis Disponibles</h2>
+                    <ul class="challenge-list" id="challenge-list">
+                        <!-- Les défis seront chargés ici -->
+                    </ul>
+                    <button class="btn btn-secondary" onclick="showMenu()">Retour au menu</button>
+                </div>
+                
+                <div id="progress-section" class="hidden section">
+                    <h2>📊 Ta Progression</h2>
+                    <div id="player-stats">
+                        <!-- Les stats du joueur seront affichées ici -->
+                    </div>
+                    <button class="btn btn-secondary" onclick="showMenu()">Retour au menu</button>
+                </div>
+                
+                <div id="create-section" class="hidden section">
+                    <h2>🎨 Espace Créatif</h2>
+                    <p>Bientôt disponible: crée tes propres projets!</p>
+                    <button class="btn btn-secondary" onclick="showMenu()">Retour au menu</button>
+                </div>
+            </div>
+            
+            <div class="status-bar">
+                <div class="player-info">
+                    <div class="avatar">É</div>
+                    <div>
+                        <strong>Élève Héros</strong><br>
+                        <small>Niveau: CP/CE1</small>
+                    </div>
+                </div>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="stat-value" id="score-display">0</div>
+                        <div class="stat-label">Points</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value" id="coins-display">0</div>
+                        <div class="stat-label">Pièces</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Écran de l'application (sera utilisé pour WebAssembly) -->
+        <div id="app-screen">
+            <canvas id="njarigu-canvas"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Données simulées (seront remplacées par le C++ compilé en WebAssembly)
+        const playerData = {
+            name: "Élève Héros",
+            level: "CP/CE1",
+            score: 0,
+            coins: 0
+        };
+
+        const lessons = [
+            {
+                id: "MATH_MAT_001",
+                title: "Découvrir les nombres de 1 à 10",
+                discipline: "Mathématiques",
+                level: "Maternelle",
+                duration: "15 min"
+            },
+            {
+                id: "FR_CP_001",
+                title: "Les voyelles magiques",
+                discipline: "Français",
+                level: "CP/CE1",
+                duration: "20 min"
+            },
+            {
+                id: "CULT_GEN_001",
+                title: "Les grands empires africains",
+                discipline: "Culture Africaine",
+                level: "CM2",
+                duration: "30 min"
+            },
+            {
+                id: "ROBO_COL_001",
+                title: "Introduction à la robotique",
+                discipline: "Robotique",
+                level: "6ème/5ème",
+                duration: "45 min"
+            }
+        ];
+
+        const challenges = [
+            {
+                id: "MATH_DUEL_001",
+                title: "Guerre des Calculs Rapides",
+                discipline: "Mathématiques",
+                players: 2,
+                timeLimit: "60s",
+                reward: 50
+            },
+            {
+                id: "FR_SOLO_001",
+                title: "La Chasse aux Mots",
+                discipline: "Français",
+                players: 1,
+                timeLimit: "90s",
+                reward: 30
+            },
+            {
+                id: "CULT_TEAM_001",
+                title: "Quiz des Civilisations Africaines",
+                discipline: "Culture Africaine",
+                players: 3,
+                timeLimit: "120s",
+                reward: 100
+            }
+        ];
+
+        // Initialisation
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('main-menu').classList.remove('hidden');
+                loadLessons();
+                loadChallenges();
+                updateStats();
+            }, 2000);
+        });
+
+        function showSection(sectionName) {
+            // Cacher toutes les sections
+            document.getElementById('main-menu').classList.add('hidden');
+            document.getElementById('lessons-section').classList.add('hidden');
+            document.getElementById('challenges-section').classList.add('hidden');
+            document.getElementById('progress-section').classList.add('hidden');
+            document.getElementById('create-section').classList.add('hidden');
+            
+            // Afficher la section demandée
+            if (sectionName === 'lessons') {
+                document.getElementById('lessons-section').classList.remove('hidden');
+            } else if (sectionName === 'challenges') {
+                document.getElementById('challenges-section').classList.remove('hidden');
+            } else if (sectionName === 'progress') {
+                document.getElementById('progress-section').classList.remove('hidden');
+                displayProgress();
+            } else if (sectionName === 'create') {
+                document.getElementById('create-section').classList.remove('hidden');
+            }
+        }
+
+        function showMenu() {
+            document.getElementById('lessons-section').classList.add('hidden');
+            document.getElementById('challenges-section').classList.add('hidden');
+            document.getElementById('progress-section').classList.add('hidden');
+            document.getElementById('create-section').classList.add('hidden');
+            document.getElementById('main-menu').classList.remove('hidden');
+        }
+
+        function loadLessons() {
+            const list = document.getElementById('lesson-list');
+            list.innerHTML = '';
+            
+            lessons.forEach(lesson => {
+                const item = document.createElement('li');
+                item.className = 'lesson-item';
+                item.innerHTML = `
+                    <div class="lesson-title">${lesson.title}</div>
+                    <div class="lesson-meta">
+                        ${lesson.discipline} • ${lesson.level} • ⏱ ${lesson.duration}
+                    </div>
+                `;
+                item.onclick = function() {
+                    alert('Leçon: ' + lesson.title + '\n\nDans la version complète, cette leçon serait interactive avec des graphismes animés!');
+                    addScore(100);
+                    addCoins(20);
+                };
+                list.appendChild(item);
+            });
+        }
+
+        function loadChallenges() {
+            const list = document.getElementById('challenge-list');
+            list.innerHTML = '';
+            
+            challenges.forEach(challenge => {
+                const item = document.createElement('li');
+                item.className = 'challenge-item';
+                item.innerHTML = `
+                    <div class="challenge-title">${challenge.title}</div>
+                    <div class="challenge-meta">
+                        ${challenge.discipline} • 👥 ${challenge.players} joueurs • ⏱ ${challenge.timeLimit} • 🪙 ${challenge.reward} pièces
+                    </div>
+                `;
+                item.onclick = function() {
+                    alert('Défi: ' + challenge.title + '\n\nDans la version complète, ce serait un jeu multijoueur interactif!');
+                    addScore(challenge.reward * 2);
+                    addCoins(challenge.reward);
+                };
+                list.appendChild(item);
+            });
+        }
+
+        function displayProgress() {
+            const container = document.getElementById('player-stats');
+            container.innerHTML = `
+                <div style="background: #f9f9f9; padding: 20px; border-radius: 10px;">
+                    <h3>${playerData.name}</h3>
+                    <p>Niveau scolaire: ${playerData.level}</p>
+                    <p>Score total: <strong>${playerData.score}</strong> points</p>
+                    <p>Pièces collectées: <strong>${playerData.coins}</strong> 🪙</p>
+                    <div style="margin-top: 20px;">
+                        <h4>Compétences:</h4>
+                        <p>📚 Français: 🌱 Débutant</p>
+                        <p>🔢 Mathématiques: 🌱 Débutant</p>
+                        <p>🌍 Culture Africaine: 🌱 Débutant</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateStats() {
+            document.getElementById('score-display').textContent = playerData.score;
+            document.getElementById('coins-display').textContent = playerData.coins;
+        }
+
+        function addScore(points) {
+            playerData.score += points;
+            updateStats();
+        }
+
+        function addCoins(coins) {
+            playerData.coins += coins;
+            updateStats();
+        }
+
+        // Ici sera intégré le module WebAssembly du C++
+        // Module.onRuntimeInitialized = function() {
+        //     console.log("NJARIGU C++ Engine loaded!");
+        // };
+    </script>
+</body>
+</html>
